@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.2)
 project (CHAKRACORE)
 
+# Disable exepected CMake workflow
+set(CHAKRACORE_BUILD_SH OFF CACHE BOOL "Use build.sh")
+
 # Keep CMake from caching static/shared library
 # option. Otherwise, CMake fails to update cached
 # references
@@ -25,7 +28,7 @@ if(LIBS_ONLY_BUILD_SH)
     set(CC_LIBS_ONLY_BUILD 1)
 endif()
 
-if(CC_USES_SYSTEM_ARCH_SH)
+if(CC_USES_SYSTEM_ARCH_SH OR NOT CHAKRACORE_BUILD_SH)
     if(CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")
         set(CC_TARGETS_AMD64_SH 1)
     elseif(CMAKE_SYSTEM_PROCESSOR STREQUAL "armv7l")
