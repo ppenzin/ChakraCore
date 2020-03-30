@@ -637,13 +637,6 @@ if [[ $WB_CHECK || $WB_ANALYZE ]]; then
     fi
 fi
 
-# prepare DbgController.js.h
-CH_DIR="${CHAKRACORE_DIR}/bin/ch"
-"${CH_DIR}/jstoc.py" "${CH_DIR}/DbgController.js" controllerScript
-if [[ $? != 0 ]]; then
-    exit 1
-fi
-
 if [ ! -d "$BUILD_DIRECTORY" ]; then
     SAFE_RUN `mkdir -p $BUILD_DIRECTORY`
 fi
