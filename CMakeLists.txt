@@ -47,7 +47,7 @@ elseif(CC_TARGETS_X86_SH)
     set(CC_TARGETS_X86 1)
     set(CMAKE_SYSTEM_PROCESSOR "i386")
 else()
-    message(FATAL_ERROR "Couldn't detect target processor, try `--arch` argument with build.sh")
+    message(FATAL_ERROR "Unsupported target processor: ${CMAKE_SYSTEM_PROCESSOR}")
 endif()
 
 unset(CC_TARGETS_ARM_SH CACHE)
@@ -166,6 +166,8 @@ if(ICU_INCLUDE_PATH)
             ${ICUDATA}
         )
     endif()
+elseif (NOT CHAKRACORE_BUILD_SH)
+    set(NO_ICU 1)
 endif()
 
 if(CC_TARGET_OS_LINUX OR CC_TARGET_OS_ANDROID)
@@ -256,7 +258,7 @@ elseif(CC_TARGET_OS_OSX)
       endif()
     endif()
 else()
-    message(FATAL_ERROR "This OS is not supported")
+    message(FATAL_ERROR "Unsupported OS: ${CMAKE_SYSTEM_NAME}")
 endif()
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL AppleClang
