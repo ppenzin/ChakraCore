@@ -18,9 +18,13 @@ if (USE_LTTNG)
     set(lttng_objects $<TARGET_OBJECTS:Chakra.LTTng>)
 endif()
 
+if(ENABLE_PAL)
+    set(pal_objs $<TARGET_OBJECTS:Chakra.Pal>)
+endif()
+
 add_library (ChakraCoreStatic STATIC
   ChakraCoreStatic.cpp
-  $<TARGET_OBJECTS:Chakra.Pal>
+  ${pal_objs}
   $<TARGET_OBJECTS:Chakra.Common.Core>
   $<TARGET_OBJECTS:Chakra.Jsrt>
   $<TARGET_OBJECTS:Chakra.Jsrt.Core>

@@ -29,7 +29,8 @@ if(LIBS_ONLY_BUILD_SH)
 endif()
 
 if(CC_USES_SYSTEM_ARCH_SH OR NOT CHAKRACORE_BUILD_SH)
-    if(CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64")
+    if(CMAKE_SYSTEM_PROCESSOR STREQUAL "x86_64"
+       OR CMAKE_SYSTEM_PROCESSOR STREQUAL "AMD64")
         set(CC_TARGETS_AMD64_SH 1)
     elseif(CMAKE_SYSTEM_PROCESSOR STREQUAL "armv7l")
         set(CC_TARGETS_ARM_SH 1)
@@ -80,6 +81,8 @@ if(ICU_SETTINGS_RESET)
     unset(SYSTEM_ICU_SH CACHE)
 endif()
 
+set(ENABLE_WINDOWS OFF CACHE BOOL "Enable experimental Windows support")
+
 if(CC_TARGET_OS_ANDROID_SH)
     set(CC_TARGET_OS_ANDROID 1)
     set(CMAKE_SYSTEM_NAME Android)
@@ -94,7 +97,14 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL Linux)
     set(CC_TARGET_OS_LINUX 1)
 elseif(CMAKE_SYSTEM_NAME STREQUAL Darwin)
     set(CC_TARGET_OS_OSX 1)
+elseif(CMAKE_SYSTEM_NAME STREQUAL Windows)
+    if(ENABLE_WINDOWS)
+        set(CC_TARGET_OS_WINDOWS 1)
+    endif()
 endif()
+
+# Always enable PAL, unless needed otherwise
+set(ENABLE_PAL (NOT CC_TARGET_OS_WINDOWS) CACHE BOOL "Enable PAL for non-Windows platforms")
 
 if (ENABLE_CC_XPLAT_TRACE_SH)
     unset(ENABLE_CC_XPLAT_TRACE_SH CACHE)
@@ -166,7 +176,7 @@ if(ICU_INCLUDE_PATH)
             ${ICUDATA}
         )
     endif()
-elseif (NOT CHAKRACORE_BUILD_SH)
+elseif (NOT CHAKRACORE_BUILD_SH AND NOT SYSTEM_ICU)
     set(NO_ICU 1)
 endif()
 
@@ -257,6 +267,8 @@ elseif(CC_TARGET_OS_OSX)
         message(WARNING "-- !! macOS Deployment Target was set to $ENV{MACOSX_DEPLOYMENT_TARGET}. Using it as is.")
       endif()
     endif()
+elseif(CC_TARGET_OS_WINDOWS)
+    # TODO
 else()
     message(FATAL_ERROR "Unsupported OS: ${CMAKE_SYSTEM_NAME}")
 endif()
@@ -484,13 +496,18 @@ if (WB_ARGS_SH)
     unset(WB_ARGS_SH CACHE)  # don't cache
 endif()
 
+if(ENABLE_PAL)
+    set(PAL_INCLUDE_DIRS
+        pal
+        pal/inc
+        pal/inc/rt)
+endif()
+
 include_directories(
     .
     lib/Common
     lib/Common/PlaceHolder
-    pal
-    pal/inc
-    pal/inc/rt
+    ${PAL_INCLUDE_DIRS}
     ${ICU_INCLUDE_PATH}
     )
 
@@ -502,7 +519,9 @@ endif()
 
 # detect features
 include_directories(SYSTEM /usr/local/include)
-include(pal/src/configure.cmake)
+if (ENABLE_PAL)
+    include(pal/src/configure.cmake)
+endif()
 
 # this should be after `detect feature` to not to affect feature detection
 # Clang -fsanitize.
@@ -512,13 +531,15 @@ if (CLANG_SANITIZE_SH)
     unset(CLANG_SANITIZE_SH CACHE)      # don't cache
 endif()
 
-add_subdirectory (pal)
+if(ENABLE_PAL)
+    add_subdirectory (pal)
 
-# build the rest with NO_PAL_MINMAX and PAL_STDCPP_COMPAT
-add_definitions(
-    -DNO_PAL_MINMAX
-    -DPAL_STDCPP_COMPAT
-    )
+    # build the rest with NO_PAL_MINMAX and PAL_STDCPP_COMPAT
+    add_definitions(
+        -DNO_PAL_MINMAX
+        -DPAL_STDCPP_COMPAT
+        )
+endif()
 
 if (ENABLE_JS_LTTNG_SH)
     unset(ENABLE_JS_LTTNG_SH CACHE)
