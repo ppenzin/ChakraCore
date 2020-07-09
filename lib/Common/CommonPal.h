@@ -118,10 +118,12 @@
 #endif // defined(_AMD64_) || defined(__i686__)
 #endif
 
+#ifdef WITH_PAL
 #include "inc/pal.h"
 #include "inc/rt/palrt.h"
 #include "inc/rt/no_sal2.h"
 #include "inc/rt/oaidl.h"
+#endif // WITH_PAL
 
 #define _u(s) u##s
 

@@ -4,6 +4,10 @@ if(BuildJIT)
     set(chakra_backend_objects $<TARGET_OBJECTS:Chakra.Backend>)
 endif()
 
+if(BUILD_PAL)
+    set(chakra_pal_objects $<TARGET_OBJECTS:Chakra.Pal>)
+endif()
+
 if(CC_TARGETS_AMD64)
     set(wasm_objects $<TARGET_OBJECTS:Chakra.WasmReader>)
     set(wasm_includes ${CHAKRACORE_SOURCE_DIR}/lib/WasmReader)
@@ -20,7 +24,7 @@ endif()
 
 add_library (ChakraCoreStatic STATIC
   ChakraCoreStatic.cpp
-  $<TARGET_OBJECTS:Chakra.Pal>
+  ${chakra_pal_objects}
   $<TARGET_OBJECTS:Chakra.Common.Core>
   $<TARGET_OBJECTS:Chakra.Jsrt>
   $<TARGET_OBJECTS:Chakra.Jsrt.Core>

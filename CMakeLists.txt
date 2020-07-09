@@ -290,6 +290,7 @@ if(CC_TARGET_OS_LINUX OR CC_TARGET_OS_ANDROID)
           -Werror"
           )
     endif()
+    set(BUILD_PAL 1)
 elseif(CC_TARGET_OS_OSX)
     add_definitions(
         -DPLATFORM_UNIX
@@ -309,10 +310,12 @@ elseif(CC_TARGET_OS_OSX)
         message(WARNING "-- !! macOS Deployment Target was set to $ENV{MACOSX_DEPLOYMENT_TARGET}. Using it as is.")
       endif()
     endif()
+    set(BUILD_PAL 1)
 elseif(CC_TARGET_OS_FREEBSD)
     add_definitions(
         -DPLATFORM_UNIX
     )
+    set(BUILD_PAL 0)
 else()
     message(FATAL_ERROR "Unsupported OS: ${CMAKE_SYSTEM_NAME}")
 endif()
@@ -525,13 +528,19 @@ if (WB_ARGS_SH)
     unset(WB_ARGS_SH CACHE)  # don't cache
 endif()
 
+if (BUILD_PAL)
+    set(PAL_INCLUDE_PATH
+        pal
+        pal/inc
+        pal/inc/rt
+        )
+endif()
+
 include_directories(
     .
     lib/Common
     lib/Common/PlaceHolder
-    pal
-    pal/inc
-    pal/inc/rt
+    ${PAL_INCLUDE_PATH}
     ${ICU_INCLUDE_PATH}
     )
 
@@ -543,7 +552,9 @@ endif()
 
 # detect features
 include_directories(SYSTEM /usr/local/include)
-include(pal/src/configure.cmake)
+if (BUILD_PAL)
+    include(pal/src/configure.cmake)
+endif()
 
 # this should be after `detect feature` to not to affect feature detection
 # Clang -fsanitize.
@@ -553,7 +564,11 @@ if (CLANG_SANITIZE_SH)
     unset(CLANG_SANITIZE_SH CACHE)      # don't cache
 endif()
 
-add_subdirectory (pal)
+if (BUILD_PAL)
+    add_subdirectory (pal)
+    # build the rest of the sources with WITH_PAL
+    add_definitions(-DWITH_PAL)
+endif()
 
 # build the rest with NO_PAL_MINMAX and PAL_STDCPP_COMPAT
 add_definitions(
