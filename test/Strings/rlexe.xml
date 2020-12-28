@@ -118,6 +118,11 @@
   </test>
   <test>
     <default>
+      <files>coerce_string_replace_6511.js</files>
+    </default>
+  </test>
+  <test>
+    <default>
       <files>replace.js</files>
       <baseline>replace.baseline</baseline>
     </default>
