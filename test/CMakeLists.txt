@@ -44,7 +44,10 @@ else()
         USES_TERMINAL
         DEPENDS ch
         )
-    add_dependencies(check bytecode-check regression-check)
+    add_dependencies(check regression-check)
+    if (ENABLE_AUTO_BYTECODE_CHECK)
+        add_dependencies(check bytecode-check)
+    endif()
 endif()
 
 if (NOT NO_ICU AND NOT EMBED_ICU)

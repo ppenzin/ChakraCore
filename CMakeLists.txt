@@ -14,6 +14,7 @@ if(NOT CHAKRACORE_BUILD_SH)
     if (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
       set(CMAKE_BUILD_TYPE "Debug" CACHE STRING "Build type" FORCE)
     endif (NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+    option(ENABLE_AUTO_BYTECODE_CHECK "Enable bytecode regeneration and check in Debug mode" OFF)
 else(NOT CHAKRACORE_BUILD_SH)
 
     # Keep CMake from caching static/shared library
