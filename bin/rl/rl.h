@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 // rl.h
@@ -472,7 +473,7 @@ public:
         /*
          * Create the semaphores for the work lists
          */
-        memset(&sa, 0, sizeof(sa));
+        memset((void*)&sa, 0, sizeof(sa));
         sa.nLength = sizeof(sa);
         sa.lpSecurityDescriptor = NULL;
         sa.bInheritHandle = TRUE;

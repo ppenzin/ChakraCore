@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "RuntimeLibraryPch.h"
@@ -82,7 +83,7 @@ namespace Js
         return (uint32)accessIndex;
     }
 
-    TypedArrayBase * AtomicsObject::ValidateAndGetTypedArray(Var typedArray, Var index, __out uint32 *accessIndex, ScriptContext *scriptContext, bool onlyInt32)
+    TypedArrayBase * AtomicsObject::ValidateAndGetTypedArray(Var typedArray, Var index, _Out_ uint32 *accessIndex, ScriptContext *scriptContext, bool onlyInt32)
     {
         ValidateSharedIntegerTypedArray(typedArray, scriptContext, onlyInt32);
         uint32 i = ValidateAtomicAccess(typedArray, index, scriptContext);

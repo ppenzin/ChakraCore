@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
@@ -7,7 +8,7 @@
 
 __declspec(dllexport)
 HRESULT JsInitializeJITServer(
-    __in UUID* connectionUuid,
+    _In_ UUID* connectionUuid,
     __in_opt void* securityDescriptor,
     __in_opt void* alpcSecurityDescriptor)
 {

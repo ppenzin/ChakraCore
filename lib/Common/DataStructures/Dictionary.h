@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -138,7 +139,7 @@ namespace JsUtil
         }
 
         template <typename TLookup>
-        inline TValue Lookup(const TLookup* key, TValue defaultValue, __out TKey const** pKeyOut)
+        inline TValue Lookup(const TLookup* key, TValue defaultValue, _Out_ TKey const** pKeyOut)
         {
             int i = FindEntry(key);
             if (i >= 0)

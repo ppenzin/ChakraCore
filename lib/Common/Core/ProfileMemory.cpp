@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "CommonCorePch.h"
@@ -24,8 +25,8 @@ MemoryProfiler::MemoryProfiler() :
     arenaDataMap(&alloc, 10)
 {
     threadId = ::GetCurrentThreadId();
-    memset(&pageMemoryData, 0, sizeof(pageMemoryData));
-    memset(&recyclerMemoryData, 0, sizeof(recyclerMemoryData));
+    memset((void*)&pageMemoryData, 0, sizeof(pageMemoryData));
+    memset((void*)&recyclerMemoryData, 0, sizeof(recyclerMemoryData));
 }
 
 MemoryProfiler::~MemoryProfiler()

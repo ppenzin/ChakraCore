@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "CommonMemoryPch.h"
@@ -72,7 +73,7 @@ void ArenaMemoryTracking::Activate()
 {
 }
 
-_NOINLINE void ArenaMemoryTracking::ArenaCreated(Allocator *arena, __in LPCWSTR name)
+_NOINLINE void ArenaMemoryTracking::ArenaCreated(Allocator *arena, _In_ LPCWSTR name)
 {
     DISTINGUISH_FUNCTION(Arena);
     EtwMemoryEvents::ReportArenaCreated(arena, ArenaTypeArena);
@@ -132,19 +133,19 @@ _NOINLINE void RecyclerMemoryTracking::ReportRecyclerDestroy(Recycler * recycler
     EtwMemoryEvents::ReportArenaDestroyed(recycler);
 }
 
-_NOINLINE void RecyclerMemoryTracking::ReportAllocation(Recycler * recycler, __in void *address, size_t size)
+_NOINLINE void RecyclerMemoryTracking::ReportAllocation(Recycler * recycler, _In_ void *address, size_t size)
 {
     DISTINGUISH_FUNCTION(Recycler);
     EtwMemoryEvents::ReportAllocation(recycler, address, size);
 }
 
-_NOINLINE void RecyclerMemoryTracking::ReportFree(Recycler * recycler, __in void *address, size_t size)
+_NOINLINE void RecyclerMemoryTracking::ReportFree(Recycler * recycler, _In_ void *address, size_t size)
 {
     DISTINGUISH_FUNCTION(Recycler);
     EtwMemoryEvents::ReportFree(recycler, address, size);
 }
 
-void RecyclerMemoryTracking::ReportUnallocated(Recycler * recycler, __in void* address, __in void *endAddress, size_t sizeCat)
+void RecyclerMemoryTracking::ReportUnallocated(Recycler * recycler, _In_ void* address, _In_ void *endAddress, size_t sizeCat)
 {
     byte * byteAddress = (byte *) address;
 

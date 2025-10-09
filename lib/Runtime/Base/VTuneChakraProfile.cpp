@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "RuntimeBasePch.h"
@@ -46,7 +47,7 @@ void VTuneChakraProfile::LogMethodNativeLoadEvent(Js::FunctionBody* body, Js::Fu
     if (isJitProfilingActive)
     {
         iJIT_Method_Load methodInfo;
-        memset(&methodInfo, 0, sizeof(iJIT_Method_Load));
+        memset((void*)&methodInfo, 0, sizeof(iJIT_Method_Load));
         const char16* methodName = body->GetExternalDisplayName();
         // Append function line number info to method name so that VTune can distinguish between polymorphic methods
         char16 methodNameBuffer[_MAX_PATH];
@@ -123,7 +124,7 @@ void VTuneChakraProfile::LogLoopBodyLoadEvent(Js::FunctionBody* body, Js::LoopEn
     if (isJitProfilingActive)
     {
         iJIT_Method_Load methodInfo;
-        memset(&methodInfo, 0, sizeof(iJIT_Method_Load));
+        memset((void*)&methodInfo, 0, sizeof(iJIT_Method_Load));
         const char16* methodName = body->GetExternalDisplayName();
         size_t methodLength = wcslen(methodName);
         charcount_t ccMethodLength = static_cast<charcount_t>(methodLength);

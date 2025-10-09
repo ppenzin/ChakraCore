@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
@@ -89,7 +90,7 @@ private:
     // HostDebugContext overrides
     virtual void Delete() {}
     DWORD_PTR GetHostSourceContext(Js::Utf8SourceInfo* sourceInfo) { return Js::Constants::NoHostSourceContext; }
-    HRESULT SetThreadDescription(__in LPCWSTR url) { return S_OK; }
+    HRESULT SetThreadDescription(_In_ LPCWSTR url) { return S_OK; }
     HRESULT DbgRegisterFunction(Js::ScriptContext* scriptContext, Js::FunctionBody* functionBody, DWORD_PTR dwDebugSourceContext, LPCWSTR title);
     void ReParentToCaller(Js::Utf8SourceInfo* sourceInfo) {}
 };

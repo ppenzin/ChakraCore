@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 // rl.cpp
@@ -4345,7 +4346,7 @@ ProcessConfig
       // Get the defaults from the default node.
 
       TestInfo testInfo;
-      memset(&testInfo, 0, sizeof(TestInfo));
+      memset((void*)&testInfo, 0, sizeof(TestInfo));
 
       if (!GetTestInfoFromNode(CfgFile, defaultNode, &testInfo))
       {

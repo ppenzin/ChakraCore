@@ -1,6 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
-// Copyright (c) 2022 ChakraCore Project Contributors. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "RuntimeLibraryPch.h"
@@ -246,7 +246,7 @@ namespace Js
             Assert(sourceContextInfo != nullptr);
 
             SRCINFO si;
-            memset(&si, 0, sizeof(si));
+            memset((void*)&si, 0, sizeof(si));
             si.sourceContextInfo = sourceContextInfo;
             sourceInfo = scriptContext->AddHostSrcInfo(&si);
         }

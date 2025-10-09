@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "CommonMemoryPch.h"
@@ -161,7 +162,7 @@ LargeHeapBlock::GetAllocPlusSize(DECLSPEC_GUARD_OVERFLOW uint objectCount)
 }
 
 LargeHeapBlock *
-LargeHeapBlock::New(__in char * address, DECLSPEC_GUARD_OVERFLOW size_t pageCount, Segment * segment, DECLSPEC_GUARD_OVERFLOW uint objectCount, LargeHeapBucket* bucket)
+LargeHeapBlock::New(_In_ char * address, DECLSPEC_GUARD_OVERFLOW size_t pageCount, Segment * segment, DECLSPEC_GUARD_OVERFLOW uint objectCount, LargeHeapBucket* bucket)
 {
     return NoMemProtectHeapNewNoThrowPlusZ(GetAllocPlusSize(objectCount), LargeHeapBlock, address, pageCount, segment, objectCount, bucket);
 }
@@ -172,7 +173,7 @@ LargeHeapBlock::Delete(LargeHeapBlock * heapBlock)
     NoMemProtectHeapDeletePlus(GetAllocPlusSize(heapBlock->objectCount), heapBlock);
 }
 
-LargeHeapBlock::LargeHeapBlock(__in char * address, size_t pageCount, Segment * segment, uint objectCount, LargeHeapBucket* bucket)
+LargeHeapBlock::LargeHeapBlock(_In_ char * address, size_t pageCount, Segment * segment, uint objectCount, LargeHeapBucket* bucket)
     : HeapBlock(LargeBlockType), pageCount(pageCount), allocAddressEnd(address), objectCount(objectCount), bucket(bucket), freeList(this)
 #if DBG && GLOBAL_ENABLE_WRITE_BARRIER
     ,wbVerifyBits(&HeapAllocator::Instance)

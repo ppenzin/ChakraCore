@@ -546,7 +546,7 @@ namespace Js
         static void OP_LoadUndefinedToElementScoped(FrameDisplay *pScope, PropertyId propertyId, Var defaultInstance, ScriptContext* scriptContext);
         static Var OP_IsInst(Var instance, Var aClass, ScriptContext* scriptContext, IsInstInlineCache *inlineCache);
         static Var IsIn(Var argProperty, Var instance, ScriptContext* scriptContext);
-        static BOOL GetRemoteTypeId(Var instance, __out TypeId* typeId);
+        static BOOL GetRemoteTypeId(Var instance, _Out_ TypeId* typeId);
         static FunctionProxy* GetDeferredDeserializedFunctionProxy(JavascriptFunction* func);
 
         template <bool IsFromFullJit, class TInlineCache> static Var PatchGetValue(FunctionBody *const functionBody, TInlineCache *const inlineCache, const InlineCacheIndex inlineCacheIndex, Var instance, PropertyId propertyId);
@@ -650,7 +650,7 @@ namespace Js
         static Var OP_LdFuncObj(Var scriptFunction, ScriptContext * scriptContext);
         static Var OP_LdHomeObjProto(Var aRight, ScriptContext* scriptContext);
         static Var OP_LdFuncObjProto(Var aRight, ScriptContext* scriptContext);
-        static Var OP_ImportCall(__in JavascriptFunction *function, __in Var specifier, __in ScriptContext* scriptContext);
+        static Var OP_ImportCall(_In_ JavascriptFunction *function, _In_ Var specifier, _In_ ScriptContext* scriptContext);
 
         static Var OP_NewAwaitObject(ScriptContext* scriptContext);
         static Var OP_NewAsyncFromSyncIterator(Var syncIterator, ScriptContext* scriptContext);
@@ -689,8 +689,8 @@ namespace Js
 
         static void VarToNativeArray(Var arrayObject,
             JsNativeValueType valueType,
-            __in UINT length,
-            __in UINT elementSize,
+            _In_ UINT length,
+            _In_ UINT elementSize,
             __out_bcount(length*elementSize) byte* contentBuffer,
             Js::ScriptContext* scriptContext);
 
@@ -729,8 +729,8 @@ namespace Js
         template <typename ArrayType>
         static void ObjectToNativeArray(ArrayType* arrayObject,
             JsNativeValueType valueType,
-            __in UINT length,
-            __in UINT elementSize,
+            _In_ UINT length,
+            _In_ UINT elementSize,
             __out_bcount(length*elementSize) byte* contentBuffer,
             Js::ScriptContext* scriptContext);
 

@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -30,7 +31,7 @@ namespace Js
         LineOffsetCache(Recycler *allocator,
             _In_reads_(numberOfLines) const charcount_t *lineCharacterOffsets,
             _In_reads_opt_(numberOfLines) const charcount_t *lineByteOffsets,
-            __in int numberOfLines);
+            _In_ int numberOfLines);
 
         // outLineCharOffset - The character offset of the start of the line returned
         int GetLineForCharacterOffset(charcount_t characterOffset, charcount_t *outLineCharOffset, charcount_t *outByteOffset);

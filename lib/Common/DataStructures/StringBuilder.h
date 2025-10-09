@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -217,7 +218,7 @@ namespace Js
             }
         }
 
-        void UnChain(__out __ecount(bufLen) char16 *pBuf, charcount_t bufLen)
+        void UnChain(_Out_ __ecount(bufLen) char16 *pBuf, charcount_t bufLen)
         {
             charcount_t lastChunkCount = this->count;
 
@@ -268,7 +269,7 @@ namespace Js
             this->appendPtr = newChunk->u.single.buffer + this->count;
         }
 
-        void Copy(__out __ecount(bufLen) char16 *pBuf, charcount_t bufLen)
+        void Copy(_Out_ __ecount(bufLen) char16 *pBuf, charcount_t bufLen)
         {
             if (this->IsChained())
             {

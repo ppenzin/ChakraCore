@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -35,7 +36,7 @@ private:
 // Methods
 public:
     int                Parse(int argc, __in_ecount(argc) LPWSTR argv[]);
-    int Parse(__in LPWSTR token) throw();
+    int Parse(_In_ LPWSTR token) throw();
     CmdLineArgsParser(ICustomConfigFlags * pCustomConfigFlags = nullptr, Js::ConfigFlagsTable& flagTable = Js::Configuration::Global.flags);
     ~CmdLineArgsParser();
 

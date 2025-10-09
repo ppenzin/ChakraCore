@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
@@ -183,7 +184,7 @@ BOOL CustomExternalWrapperObject::VerifyObjectAlive()
     return TRUE;
 }
 
-BOOL CustomExternalWrapperObject::Equals(__in Var other, __out BOOL* value, ScriptContext* requestContext)
+BOOL CustomExternalWrapperObject::Equals(_In_ Var other, _Out_ BOOL* value, ScriptContext* requestContext)
 {
     // We need to implement comparison to other by reference in case the object
     // is in the left side of the comparison, and does not call a toString
@@ -193,7 +194,7 @@ BOOL CustomExternalWrapperObject::Equals(__in Var other, __out BOOL* value, Scri
     return true;
 }
 
-BOOL CustomExternalWrapperObject::StrictEquals(__in Var other, __out BOOL* value, ScriptContext* requestContext)
+BOOL CustomExternalWrapperObject::StrictEquals(_In_ Var other, _Out_ BOOL* value, ScriptContext* requestContext)
 {
     // We need to implement comparison to other by reference in case the object
     // is in the left side of the comparison, and does not call a toString

@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "RuntimeBasePch.h"
@@ -21,7 +22,7 @@ namespace Js
     }
 
     template <bool isGuestArena>
-    TempArenaAllocatorWrapper<isGuestArena>::TempArenaAllocatorWrapper(__in LPCWSTR name, PageAllocator * pageAllocator, void (*outOfMemoryFunc)()) :
+    TempArenaAllocatorWrapper<isGuestArena>::TempArenaAllocatorWrapper(_In_ LPCWSTR name, PageAllocator * pageAllocator, void (*outOfMemoryFunc)()) :
         allocator(name, pageAllocator, outOfMemoryFunc), recycler(nullptr), externalGuestArenaRef(nullptr)
     {
     }

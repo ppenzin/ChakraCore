@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "Runtime.h"
@@ -28,7 +29,7 @@ namespace Js
 
 #ifdef ENABLE_TEST_HOOKS
 
-HRESULT __stdcall SetConfigFlags(__in int argc, __in_ecount(argc) LPWSTR argv[], ICustomConfigFlags* customConfigFlags)
+HRESULT __stdcall SetConfigFlags(_In_ int argc, __in_ecount(argc) LPWSTR argv[], ICustomConfigFlags* customConfigFlags)
 {
     CmdLineArgsParser parser(customConfigFlags);
     if (parser.Parse(argc, argv) != 0)
@@ -39,7 +40,7 @@ HRESULT __stdcall SetConfigFlags(__in int argc, __in_ecount(argc) LPWSTR argv[],
     return S_OK;
 }
 
-HRESULT __stdcall SetConfigFile(__in LPWSTR strConfigFile)
+HRESULT __stdcall SetConfigFile(_In_ LPWSTR strConfigFile)
 {
     CmdLineArgsParser parser;
     ConfigParser::ParseCustomConfigFile(parser, strConfigFile);

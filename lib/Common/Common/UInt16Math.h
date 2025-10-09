@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -40,7 +41,7 @@ public:
     }
 
     // Convenience function which returns a bool indicating overflow
-    static bool Add(uint16 lhs, uint16 rhs, __out uint16* result)
+    static bool Add(uint16 lhs, uint16 rhs, _Out_ uint16* result)
     {
         ::Math::RecordOverflowPolicy overflowGuard;
         *result = Add(lhs, rhs, overflowGuard);
@@ -54,7 +55,7 @@ public:
     }
 
     template<typename Func>
-    static uint16 Mul(uint16 lhs, uint16 rhs, __in Func& overflowFn)
+    static uint16 Mul(uint16 lhs, uint16 rhs, _In_ Func& overflowFn)
     {
         // Do the multiplication using 32-bit unsigned math.
         uint32 result = static_cast<uint32>(lhs) * static_cast<uint32>(rhs);
@@ -73,7 +74,7 @@ public:
         return Mul(lhs, rhs, ::Math::DefaultOverflowPolicy);
     }
 
-    static bool Mul(uint16 lhs, uint16 rhs, __out uint16* result)
+    static bool Mul(uint16 lhs, uint16 rhs, _Out_ uint16* result)
     {
         ::Math::RecordOverflowPolicy overflowGuard;
         *result = Mul(lhs, rhs, overflowGuard);

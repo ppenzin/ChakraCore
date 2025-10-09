@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "Backend.h"
@@ -26,7 +27,7 @@ Peeps::PeepFunc()
     this->peepsMD.Init(this);
 
     // Init regMap
-    memset(this->regMap, 0, sizeof(this->regMap));
+    memset((void*)this->regMap, 0, sizeof(this->regMap));
 
     // Scratch field needs to be cleared.
     this->func->m_symTable->ClearStackSymScratch();

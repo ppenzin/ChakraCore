@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 //
@@ -823,14 +824,14 @@ PipeSpawn(
         return NULL;
     }
 
-    memset(&StartupInfo, 0, sizeof(STARTUPINFO));
+    memset((void*)&StartupInfo, 0, sizeof(STARTUPINFO));
     StartupInfo.cb = sizeof(STARTUPINFO);
     StartupInfo.hStdOutput = WriteHandle;
     StartupInfo.hStdError = ErrorHandle;
     StartupInfo.hStdInput = GetStdHandle(STD_INPUT_HANDLE);
     StartupInfo.dwFlags = STARTF_USESTDHANDLES;
 
-    memset(&ProcessInformation, 0, sizeof(PROCESS_INFORMATION));
+    memset((void*)&ProcessInformation, 0, sizeof(PROCESS_INFORMATION));
     ProcessInformation.hThread  = INVALID_HANDLE_VALUE;
     ProcessInformation.hProcess = INVALID_HANDLE_VALUE;
 

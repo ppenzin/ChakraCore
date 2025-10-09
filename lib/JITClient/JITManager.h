@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
@@ -21,7 +22,7 @@ enum class RemoteCallType
 class JITManager
 {
 public:
-    HRESULT ConnectRpcServer(__in HANDLE jitProcessHandle, __in_opt void* serverSecurityDescriptor, __in UUID connectionUuid);
+    HRESULT ConnectRpcServer(_In_ HANDLE jitProcessHandle, __in_opt void* serverSecurityDescriptor, _In_ UUID connectionUuid);
 
     bool IsConnected() const;
     bool IsJITServer() const;
@@ -32,26 +33,26 @@ public:
     bool HasJITFailed() const;
 
     HRESULT InitializeThreadContext(
-        __in ThreadContextDataIDL * data,
-        __out PPTHREADCONTEXT_HANDLE threadContextInfoAddress,
-        __out intptr_t * prereservedRegionAddr,
-        __out intptr_t * jitThunkAddr);
+        _In_ ThreadContextDataIDL * data,
+        _Out_ PPTHREADCONTEXT_HANDLE threadContextInfoAddress,
+        _Out_ intptr_t * prereservedRegionAddr,
+        _Out_ intptr_t * jitThunkAddr);
 
     HRESULT CleanupThreadContext(
         __inout PPTHREADCONTEXT_HANDLE threadContextInfoAddress);
 
     HRESULT UpdatePropertyRecordMap(
-        __in PTHREADCONTEXT_HANDLE threadContextInfoAddress,
+        _In_ PTHREADCONTEXT_HANDLE threadContextInfoAddress,
         __in_opt BVSparseNodeIDL * updatedPropsBVHead);
 
     HRESULT DecommitInterpreterBufferManager(
-        __in PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
-        __in boolean asmJsThunk);
+        _In_ PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
+        _In_ boolean asmJsThunk);
 
     HRESULT NewInterpreterThunkBlock(
-        __in PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
-        __in InterpreterThunkInputIDL * thunkInput,
-        __out InterpreterThunkOutputIDL * thunkOutput);
+        _In_ PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
+        _In_ InterpreterThunkInputIDL * thunkInput,
+        _Out_ InterpreterThunkOutputIDL * thunkOutput);
 
     HRESULT AddModuleRecordInfo(
             /* [in] */ PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
@@ -59,44 +60,44 @@ public:
             /* [in] */ intptr_t localExportSlotsAddr);
 
     HRESULT SetWellKnownHostTypeId(
-        __in  PTHREADCONTEXT_HANDLE threadContextRoot,
-        __in  int typeId);
+        _In_  PTHREADCONTEXT_HANDLE threadContextRoot,
+        _In_  int typeId);
 
     HRESULT InitializeScriptContext(
-        __in ScriptContextDataIDL * data,
-        __in  PTHREADCONTEXT_HANDLE threadContextInfoAddress,
-        __out PPSCRIPTCONTEXT_HANDLE scriptContextInfoAddress);
+        _In_ ScriptContextDataIDL * data,
+        _In_  PTHREADCONTEXT_HANDLE threadContextInfoAddress,
+        _Out_ PPSCRIPTCONTEXT_HANDLE scriptContextInfoAddress);
 
     HRESULT CleanupScriptContext(
         __inout PPSCRIPTCONTEXT_HANDLE scriptContextInfoAddress);
 
     HRESULT CloseScriptContext(
-        __in PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress);
+        _In_ PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress);
 
     HRESULT FreeAllocation(
-        __in PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
-        __in intptr_t codeAddress);
+        _In_ PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
+        _In_ intptr_t codeAddress);
 
     HRESULT SetIsPRNGSeeded(
-        __in PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
-        __in boolean value);
+        _In_ PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
+        _In_ boolean value);
 
     HRESULT IsNativeAddr(
-        __in PTHREADCONTEXT_HANDLE threadContextInfoAddress,
-        __in intptr_t address,
-        __out boolean * result);
+        _In_ PTHREADCONTEXT_HANDLE threadContextInfoAddress,
+        _In_ intptr_t address,
+        _Out_ boolean * result);
 
     HRESULT RemoteCodeGenCall(
-        __in CodeGenWorkItemIDL *workItemData,
-        __in PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
-        __out JITOutputIDL *jitData);
+        _In_ CodeGenWorkItemIDL *workItemData,
+        _In_ PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
+        _Out_ JITOutputIDL *jitData);
 
 #if DBG
     HRESULT IsInterpreterThunkAddr(
-        __in PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
-        __in intptr_t address,
-        __in boolean asmjsThunk,
-        __out boolean * result);
+        _In_ PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
+        _In_ intptr_t address,
+        _In_ boolean asmjsThunk,
+        _Out_ boolean * result);
 #endif
 
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
@@ -123,10 +124,10 @@ private:
     ~JITManager();
 
     HRESULT CreateBinding(
-        __in HANDLE serverProcessHandle,
+        _In_ HANDLE serverProcessHandle,
         __in_opt void* serverSecurityDescriptor,
-        __in UUID* connectionUuid,
-        __out RPC_BINDING_HANDLE* bindingHandle);
+        _In_ UUID* connectionUuid,
+        _Out_ RPC_BINDING_HANDLE* bindingHandle);
 
     HRESULT ConnectProcess(RPC_BINDING_HANDLE rpcBindingHandle);
 
@@ -145,7 +146,7 @@ private:
 class JITManager
 {
 public:
-    HRESULT ConnectRpcServer(__in HANDLE jitProcessHandle, __in_opt void* serverSecurityDescriptor, __in UUID connectionUuid)
+    HRESULT ConnectRpcServer(_In_ HANDLE jitProcessHandle, __in_opt void* serverSecurityDescriptor, _In_ UUID connectionUuid)
         { Assert(false); return E_FAIL; }
 
     bool IsConnected() const { return false; }
@@ -156,15 +157,15 @@ public:
     void SetJITFailed(HRESULT hr) { Assert(false); }
 
     HRESULT InitializeThreadContext(
-        __in ThreadContextDataIDL * data,
-        __out PPTHREADCONTEXT_HANDLE threadContextInfoAddress,
-        __out intptr_t *prereservedRegionAddr,
-        __out intptr_t * jitThunkAddr)
+        _In_ ThreadContextDataIDL * data,
+        _Out_ PPTHREADCONTEXT_HANDLE threadContextInfoAddress,
+        _Out_ intptr_t *prereservedRegionAddr,
+        _Out_ intptr_t * jitThunkAddr)
         { Assert(false); return E_FAIL; }
 
     HRESULT DecommitInterpreterBufferManager(
-        __in PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
-        __in boolean asmJsThunk)
+        _In_ PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
+        _In_ boolean asmJsThunk)
         { Assert(false); return E_FAIL; }
 
     HRESULT CleanupThreadContext(
@@ -172,7 +173,7 @@ public:
         { Assert(false); return E_FAIL; }
 
     HRESULT UpdatePropertyRecordMap(
-        __in PTHREADCONTEXT_HANDLE threadContextInfoAddress,
+        _In_ PTHREADCONTEXT_HANDLE threadContextInfoAddress,
         __in_opt BVSparseNodeIDL * updatedPropsBVHead)
         { Assert(false); return E_FAIL; }
 
@@ -183,14 +184,14 @@ public:
         { Assert(false); return E_FAIL; }
 
     HRESULT SetWellKnownHostTypeId(
-        __in  PTHREADCONTEXT_HANDLE threadContextRoot,
-        __in  int typeId)
+        _In_  PTHREADCONTEXT_HANDLE threadContextRoot,
+        _In_  int typeId)
         { Assert(false); return E_FAIL; }
 
     HRESULT InitializeScriptContext(
-        __in ScriptContextDataIDL * data,
-        __in PTHREADCONTEXT_HANDLE threadContextInfoAddress,
-        __out PPSCRIPTCONTEXT_HANDLE scriptContextInfoAddress)
+        _In_ ScriptContextDataIDL * data,
+        _In_ PTHREADCONTEXT_HANDLE threadContextInfoAddress,
+        _Out_ PPSCRIPTCONTEXT_HANDLE scriptContextInfoAddress)
         { Assert(false); return E_FAIL; }
 
     HRESULT CleanupScriptContext(
@@ -198,37 +199,37 @@ public:
         { Assert(false); return E_FAIL; }
 
     HRESULT CloseScriptContext(
-        __in PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress)
+        _In_ PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress)
         { Assert(false); return E_FAIL; }
 
     HRESULT FreeAllocation(
-        __in PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
-        __in intptr_t codeAddress)
+        _In_ PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
+        _In_ intptr_t codeAddress)
         { Assert(false); return E_FAIL; }
 
     HRESULT SetIsPRNGSeeded(
-        __in PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
-        __in boolean value)
+        _In_ PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
+        _In_ boolean value)
         { Assert(false); return E_FAIL; }
 
     HRESULT IsNativeAddr(
-        __in PTHREADCONTEXT_HANDLE threadContextInfoAddress,
-        __in intptr_t address,
-        __out boolean * result)
+        _In_ PTHREADCONTEXT_HANDLE threadContextInfoAddress,
+        _In_ intptr_t address,
+        _Out_ boolean * result)
         { Assert(false); return E_FAIL; }
 
     HRESULT RemoteCodeGenCall(
-        __in CodeGenWorkItemIDL *workItemData,
-        __in PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
-        __out JITOutputIDL *jitData)
+        _In_ CodeGenWorkItemIDL *workItemData,
+        _In_ PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
+        _Out_ JITOutputIDL *jitData)
         { Assert(false); return E_FAIL; }
 
 #if DBG
     HRESULT IsInterpreterThunkAddr(
-        __in PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
-        __in intptr_t address,
-        __in boolean asmjsThunk,
-        __out boolean * result)
+        _In_ PSCRIPTCONTEXT_HANDLE scriptContextInfoAddress,
+        _In_ intptr_t address,
+        _In_ boolean asmjsThunk,
+        _Out_ boolean * result)
         { Assert(false); return E_FAIL; }
 #endif
 

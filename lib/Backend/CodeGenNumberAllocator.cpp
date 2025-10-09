@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "Backend.h"
@@ -396,7 +397,7 @@ Js::JavascriptNumber* XProcNumberPageSegmentImpl::AllocateNumber(Func* func, dou
 
 XProcNumberPageSegmentImpl::XProcNumberPageSegmentImpl()
 {
-    memset(this, 0, sizeof(XProcNumberPageSegment));
+    memset((void*)this, 0, sizeof(XProcNumberPageSegment));
 }
 
 void XProcNumberPageSegmentImpl::Initialize(bool recyclerVerifyEnabled, uint recyclerVerifyPad)

@@ -1,7 +1,10 @@
-//
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information. 
-//
+//-------------------------------------------------------------------------------------------------------
+// ChakraCore/Pal
+// Contains portions (c) copyright Microsoft, portions copyright (c) the .NET Foundation and Contributors
+// and edits (c) copyright the ChakraCore Contributors.
+// See THIRD-PARTY-NOTICES.txt in the project root for .NET Foundation license
+// Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
+//-------------------------------------------------------------------------------------------------------
 
 /***
 *internal_securecrt.h - contains declarations of internal routines and variables for securecrt
@@ -31,7 +34,7 @@
 #define __in_z_opt
 #define __out_ecount_z_opt( x )
 #define __in_z
-#define __in
+#define _In_
 
 /* 
  * The original SafeCRT implemention allows runtine control over buffer checking.

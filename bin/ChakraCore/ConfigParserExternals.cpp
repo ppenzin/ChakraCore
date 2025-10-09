@@ -1,16 +1,17 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "Common.h"
 #include "Core/ConfigParser.h"
 
-bool ConfigParserAPI::FillConsoleTitle(__ecount(cchBufferSize) LPWSTR buffer, size_t cchBufferSize, __in LPWSTR moduleName)
+bool ConfigParserAPI::FillConsoleTitle(__ecount(cchBufferSize) LPWSTR buffer, size_t cchBufferSize, _In_ LPWSTR moduleName)
 {
     return false;
 }
 
-void ConfigParserAPI::DisplayInitialOutput(__in LPWSTR moduleName)
+void ConfigParserAPI::DisplayInitialOutput(_In_ LPWSTR moduleName)
 {
 }
 

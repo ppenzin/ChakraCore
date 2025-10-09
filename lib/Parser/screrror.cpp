@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "ParserPch.h"
@@ -209,7 +210,7 @@ void ScriptException::GetError(HRESULT *phr, EXCEPINFO *pei)
         {
             *phr = HR(DISP_E_EXCEPTION);
             js_memcpy_s(pei, sizeof(*pei), &ei, sizeof(*pei));
-            memset(&ei, 0, sizeof(ei));
+            memset((void*)&ei, 0, sizeof(ei));
             if (nullptr != pei->pfnDeferredFillIn)
             {
                 pei->pfnDeferredFillIn(pei);

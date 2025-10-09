@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -163,7 +164,7 @@ namespace Js
 
         Var GetExceptionObject() { return jsExceptionObject; }
 
-        bool HasAllowedForException(__in JavascriptExceptionObject* exceptionObject);
+        bool HasAllowedForException(_In_ JavascriptExceptionObject* exceptionObject);
 
         void SetThrowIsInternal(bool set) { isThrowInternal = set; }
 

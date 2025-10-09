@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
@@ -44,7 +45,7 @@ namespace PlatformAgnostic
         namespace Internal
         {
             template <typename CharType>
-            bool isDigit(__in CharType c)
+            bool isDigit(_In_ CharType c)
             {
                 return c >= '0' && c <= '9';
             }
@@ -73,7 +74,7 @@ namespace PlatformAgnostic
             }
 
             template <typename CharType>
-            bool isNull(__in CharType c)
+            bool isNull(_In_ CharType c)
             {
                 return c == '\0';
             }

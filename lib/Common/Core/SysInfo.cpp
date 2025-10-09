@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "CommonCorePch.h"
@@ -493,7 +494,7 @@ HRESULT AutoSystemInfo::GetJscriptFileVersion(DWORD* majorVersion, DWORD* minorV
 //
 // Returns the major and minor version of the binary passed as argument.
 //
-HRESULT AutoSystemInfo::GetVersionInfo(__in LPCWSTR pszPath, DWORD* majorVersion, DWORD* minorVersion)
+HRESULT AutoSystemInfo::GetVersionInfo(_In_ LPCWSTR pszPath, DWORD* majorVersion, DWORD* minorVersion)
 {
 #ifdef _WIN32
     DWORD   dwTemp;

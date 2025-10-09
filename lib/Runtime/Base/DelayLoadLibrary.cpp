@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "RuntimeBasePch.h"
@@ -163,8 +164,8 @@ namespace Js
     }
 
     HRESULT DelayLoadWindowsGlobalization::DllGetActivationFactory(
-        __in HSTRING activatableClassId,
-        __out IActivationFactory** factory)
+        _In_ HSTRING activatableClassId,
+        _Out_ IActivationFactory** factory)
     {
         if (m_hModule)
         {
@@ -186,9 +187,9 @@ namespace Js
 #endif
 
     HRESULT DelayLoadWinRtFoundation::RoGetActivationFactory(
-        __in HSTRING activatableClassId,
-        __in REFIID iid,
-        __out IActivationFactory** factory)
+        _In_ HSTRING activatableClassId,
+        _In_ REFIID iid,
+        _Out_ IActivationFactory** factory)
     {
         if (m_hModule)
         {
@@ -301,10 +302,10 @@ namespace Js
 #endif
 
     BOOL DelayLoadWinCoreProcessThreads::GetProcessInformation(
-        __in HANDLE hProcess,
-        __in PROCESS_INFORMATION_CLASS ProcessInformationClass,
+        _In_ HANDLE hProcess,
+        _In_ PROCESS_INFORMATION_CLASS ProcessInformationClass,
         __out_bcount(nLength) PVOID lpBuffer,
-        __in SIZE_T nLength
+        _In_ SIZE_T nLength
     )
     {
 #if defined(DELAYLOAD_SET_CFG_TARGET) || defined(_M_ARM)

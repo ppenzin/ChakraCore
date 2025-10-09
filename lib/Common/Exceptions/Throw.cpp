@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
@@ -294,7 +295,7 @@ namespace Js {
 #define CHAKRA_ASSERT_CAPTION _u("CHAKRA ASSERT")
 #endif
 
-    bool Throw::ReportAssert(__in LPCSTR fileName, uint lineNumber, __in LPCSTR error, __in LPCSTR message)
+    bool Throw::ReportAssert(_In_ LPCSTR fileName, uint lineNumber, _In_ LPCSTR error, _In_ LPCSTR message)
     {
 #ifdef ENABLE_DEBUG_CONFIG_OPTIONS
         if (Js::Configuration::Global.flags.IsEnabled(Js::AssertBreakFlag))

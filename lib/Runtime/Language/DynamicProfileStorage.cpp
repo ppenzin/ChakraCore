@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "RuntimeLanguagePch.h"
@@ -36,7 +37,7 @@ public:
     template <typename T>
     bool ReadArray(T * t, size_t len);
 
-    _Success_(return) bool ReadUtf8String(__deref_out_z char16 ** str, __out DWORD * len);
+    _Success_(return) bool ReadUtf8String(__deref_out_z char16 ** str, _Out_ DWORD * len);
 
     template <typename T>
     bool Write(T const& t);
@@ -101,7 +102,7 @@ bool DynamicProfileStorageReaderWriter::ReadArray(T * t, size_t len)
     return true;
 }
 
-_Success_(return) bool DynamicProfileStorageReaderWriter::ReadUtf8String(__deref_out_z char16 ** str, __out DWORD * len)
+_Success_(return) bool DynamicProfileStorageReaderWriter::ReadUtf8String(__deref_out_z char16 ** str, _Out_ DWORD * len)
 {
     DWORD urllen;
     if (!Read(&urllen))

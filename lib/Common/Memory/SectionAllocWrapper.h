@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
@@ -23,7 +24,7 @@ class SectionMap32
 #endif
 public:
 #if TARGET_64
-    SectionMap32(__in char * startAddress);
+    SectionMap32(_In_ char * startAddress);
 #else
     SectionMap32();
 #endif
@@ -91,7 +92,7 @@ private:
 
     struct Node
     {
-        Node(__in char * startAddress) : map(startAddress) { }
+        Node(_In_ char * startAddress) : map(startAddress) { }
 
         uint nodeIndex;
         Node * next;

@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -16,7 +17,7 @@ public:
 
     virtual LPCTSTR GetLibraryName() const = 0;
 
-    FARPROC GetFunction(__in LPCSTR lpFunctionName);
+    FARPROC GetFunction(_In_ LPCSTR lpFunctionName);
 
     void EnsureFromSystemDirOnly();
     bool IsAvailable();
@@ -171,7 +172,7 @@ public:
         _In_ ULONG_PTR RangeBase,
         _In_ ULONG_PTR RangeEnd);
     VOID DeleteGrowableFunctionTable(_In_ PVOID DynamicTable);
-    VOID GrowFunctionTable(__inout PVOID DynamicTable, __in ULONG NewEntryCount);
+    VOID GrowFunctionTable(__inout PVOID DynamicTable, _In_ ULONG NewEntryCount);
 #endif
 
     // we do not have the header where this macro is defined, so implement ourselves

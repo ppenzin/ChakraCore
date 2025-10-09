@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "Backend.h"
@@ -287,7 +288,7 @@ SymTable::ClearStackSymScratch()
     {
         if (sym->IsStackSym())
         {
-            memset(&(sym->AsStackSym()->scratch), 0, sizeof(sym->AsStackSym()->scratch));
+            memset((void*)&(sym->AsStackSym()->scratch), 0, sizeof(sym->AsStackSym()->scratch));
         }
     } NEXT_SYM_IN_TABLE;
 }

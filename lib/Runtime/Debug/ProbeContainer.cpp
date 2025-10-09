@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "RuntimeDebugPch.h"
@@ -997,7 +998,7 @@ namespace Js
         });
     }
 
-    bool ProbeContainer::HasAllowedForException(__in JavascriptExceptionObject* exceptionObject)
+    bool ProbeContainer::HasAllowedForException(_In_ JavascriptExceptionObject* exceptionObject)
     {
         // We do not want to break on internal exception.
         if (isThrowInternal)

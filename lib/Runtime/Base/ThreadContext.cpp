@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft Corporation and contributors. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
@@ -248,7 +249,7 @@ ThreadContext::ThreadContext(AllocationPolicyManager * allocationPolicyManager, 
 #endif
 
 #ifdef NTBUILD
-    memset(&localTelemetryBlock, 0, sizeof(localTelemetryBlock));
+    memset((void*)&localTelemetryBlock, 0, sizeof(localTelemetryBlock));
 #endif
 
     AutoCriticalSection autocs(ThreadContext::GetCriticalSection());
@@ -861,7 +862,7 @@ ThreadContext::FindPropertyRecord(Js::JavascriptString *pstName, Js::PropertyRec
 }
 
 void
-ThreadContext::FindPropertyRecord(__in LPCWCH propertyName, __in int propertyNameLength, Js::PropertyRecord const ** propertyRecord)
+ThreadContext::FindPropertyRecord(_In_ LPCWCH propertyName, _In_ int propertyNameLength, Js::PropertyRecord const ** propertyRecord)
 {
     EnterPinnedScope((volatile void **)propertyRecord);
     *propertyRecord = FindPropertyRecord(propertyName, propertyNameLength);
@@ -903,7 +904,7 @@ ThreadContext::FindPropertyRecord(const char16 * propertyName, int propertyNameL
 }
 
 Js::PropertyRecord const *
-ThreadContext::UncheckedAddPropertyId(__in LPCWSTR propertyName, __in int propertyNameLength, bool bind, bool isSymbol)
+ThreadContext::UncheckedAddPropertyId(_In_ LPCWSTR propertyName, _In_ int propertyNameLength, bool bind, bool isSymbol)
 {
     return UncheckedAddPropertyId(JsUtil::CharacterBuffer<WCHAR>(propertyName, propertyNameLength), bind, isSymbol);
 }
@@ -2222,7 +2223,7 @@ void ThreadContext::PopEntryExitRecord(Js::ScriptEntryExitRecord * record)
     this->entryExitRecord = next;
 }
 
-BOOL ThreadContext::ReserveStaticTypeIds(__in int first, __in int last)
+BOOL ThreadContext::ReserveStaticTypeIds(_In_ int first, _In_ int last)
 {
     if ( nextTypeId <= first )
     {

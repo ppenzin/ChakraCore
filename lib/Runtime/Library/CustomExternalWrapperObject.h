@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -101,8 +102,8 @@ namespace Js
         virtual BOOL SetItem(uint32 index, Var value, PropertyOperationFlags flags) override;
         virtual BOOL DeleteItem(uint32 index, PropertyOperationFlags flags) override;
         virtual BOOL GetEnumerator(JavascriptStaticEnumerator * enumerator, EnumeratorFlags flags, ScriptContext * requestContext, EnumeratorCache * enumeratorCache = nullptr) override;
-        virtual BOOL Equals(__in Var other, __out BOOL* value, ScriptContext* requestContext) override;
-        virtual BOOL StrictEquals(__in Var other, __out BOOL* value, ScriptContext* requestContext) override;
+        virtual BOOL Equals(_In_ Var other, _Out_ BOOL* value, ScriptContext* requestContext) override;
+        virtual BOOL StrictEquals(_In_ Var other, _Out_ BOOL* value, ScriptContext* requestContext) override;
 
         virtual DynamicType* DuplicateType() override;
         virtual void SetPrototype(RecyclableObject* newPrototype) override;
@@ -162,7 +163,7 @@ namespace Js
             Field(uint) inlineSlotSize;
             SlotInfo()
             {
-                memset(this, 0, sizeof(SlotInfo));
+                memset((void*)this, 0, sizeof(SlotInfo));
             }
         };
         Field(SlotInfo) u;

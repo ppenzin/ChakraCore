@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -1832,7 +1833,7 @@ private:
 #endif // ENABLE_CONCURRENT_GC
 
     bool ForceSweepObject();
-    void NotifyFree(__in char * address, size_t size);
+    void NotifyFree(_In_ char * address, size_t size);
     template <typename T>
     void NotifyFree(T * heapBlock);
 
@@ -1841,7 +1842,7 @@ private:
 #ifdef ENABLE_JS_ETW
     ULONG EventWriteFreeMemoryBlock(HeapBlock* heapBlock);
     void FlushFreeRecord();
-    void AppendFreeMemoryETWRecord(__in char *address, size_t size);
+    void AppendFreeMemoryETWRecord(_In_ char *address, size_t size);
     static const uint BulkFreeMemoryCount = 400;
     uint bulkFreeMemoryWrittenCount;
     struct ETWFreeRecord {
@@ -1915,7 +1916,7 @@ public:
 private:
     static bool DoProfileAllocTracker();
     void InitializeProfileAllocTracker();
-    void TrackUnallocated(__in  char* address, __in char *endAddress, size_t sizeCat);
+    void TrackUnallocated(_In_  char* address, _In_ char *endAddress, size_t sizeCat);
     void TrackAllocCore(void * object, size_t size, const TrackAllocData& trackAllocData, bool traceLifetime = false);
     void* TrackAlloc(void * object, size_t size, const TrackAllocData& trackAllocData, bool traceLifetime = false);
 

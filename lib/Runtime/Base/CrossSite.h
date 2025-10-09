@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -35,7 +36,7 @@ namespace Js
 #endif
 
     private:
-        static Var MarshalVarInner(ScriptContext* scriptContext, __in Js::RecyclableObject* object, bool fRequestWrapper);
+        static Var MarshalVarInner(ScriptContext* scriptContext, _In_ Js::RecyclableObject* object, bool fRequestWrapper);
         static Var CommonThunk(RecyclableObject * function, JavascriptMethod entryPoint, Arguments args);
 
         static void MarshalDynamicObject(ScriptContext * scriptContext, DynamicObject * object);

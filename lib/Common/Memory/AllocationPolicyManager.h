@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 //
@@ -20,9 +21,9 @@ public:
         MemoryFailure = 2,
         MemoryMax = 2,
     };
-    typedef bool (__stdcall * PageAllocatorMemoryAllocationCallback)(__in LPVOID context,
-        __in AllocationPolicyManager::MemoryAllocateEvent allocationEvent,
-        __in size_t allocationSize);
+    typedef bool (__stdcall * PageAllocatorMemoryAllocationCallback)(_In_ LPVOID context,
+        _In_ AllocationPolicyManager::MemoryAllocateEvent allocationEvent,
+        _In_ size_t allocationSize);
 
 
 private:

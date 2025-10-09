@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "RuntimeLibraryPch.h"
@@ -2249,7 +2250,7 @@ LHexError:
         return TRUE;
     }
 
-    BOOL GlobalObject::StrictEquals(__in Js::Var other, __out BOOL* value, ScriptContext * requestContext)
+    BOOL GlobalObject::StrictEquals(_In_ Js::Var other, _Out_ BOOL* value, ScriptContext * requestContext)
     {
         if (this == other)
         {
@@ -2268,7 +2269,7 @@ LHexError:
         return FALSE;
     }
 
-    BOOL GlobalObject::Equals(__in Js::Var other, __out BOOL* value, ScriptContext * requestContext)
+    BOOL GlobalObject::Equals(_In_ Js::Var other, _Out_ BOOL* value, ScriptContext * requestContext)
     {
         if (this == other)
         {

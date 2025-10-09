@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "RuntimeDebugPch.h"
@@ -1839,8 +1840,8 @@ namespace TTD
         this->m_indentBuffer = (char*)malloc(TRACE_LOGGER_INDENT_BUFFER_SIZE);
         TTDAssert(this->m_indentBuffer != nullptr, "Malloc failure in tracing code.");
 
-        memset(this->m_buffer, 0, TRACE_LOGGER_BUFFER_SIZE);
-        memset(this->m_indentBuffer, 0, TRACE_LOGGER_INDENT_BUFFER_SIZE);
+        memset((void*)this->m_buffer, 0, TRACE_LOGGER_BUFFER_SIZE);
+        memset((void*)this->m_indentBuffer, 0, TRACE_LOGGER_INDENT_BUFFER_SIZE);
     }
 
     TraceLogger::~TraceLogger()

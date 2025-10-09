@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
@@ -14,10 +15,10 @@ FunctionJITTimeInfo::FunctionJITTimeInfo(FunctionJITTimeDataIDL * data) : m_data
 /* static */
 void
 FunctionJITTimeInfo::BuildJITTimeData(
-    __in ArenaAllocator * alloc,
-    __in const Js::FunctionCodeGenJitTimeData * codeGenData,
+    _In_ ArenaAllocator * alloc,
+    _In_ const Js::FunctionCodeGenJitTimeData * codeGenData,
     __in_opt const Js::FunctionCodeGenRuntimeData * runtimeData,
-    __out FunctionJITTimeDataIDL * jitData,
+    _Out_ FunctionJITTimeDataIDL * jitData,
     bool isInlinee,
     bool isForegroundJIT)
 {

@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 // Allows an external memory tracking utility (such as MemSpect) to track recycler allocations
@@ -16,7 +17,7 @@ class ArenaMemoryTracking
 {
 public:
     static void Activate();
-    static void ArenaCreated(Allocator *arena,  __in LPCWSTR name);
+    static void ArenaCreated(Allocator *arena,  _In_ LPCWSTR name);
     static void ArenaDestroyed(Allocator *arena);
     static void ReportAllocation(Allocator *arena, void *address, size_t size);
     static void ReportReallocation(Allocator *arena, void *address, size_t existingSize, size_t newSize);
@@ -33,9 +34,9 @@ public:
     static void Activate();
     static void ReportRecyclerCreate(Recycler * recycler);
     static void ReportRecyclerDestroy(Recycler * recycler);
-    static void ReportAllocation(Recycler * recycler, __in void *address, size_t size);
-    static void ReportFree(Recycler * recycler, __in void *address, size_t size);
-    static void ReportUnallocated(Recycler * recycler, __in void* address, __in void *endAddress, size_t sizeCat);
+    static void ReportAllocation(Recycler * recycler, _In_ void *address, size_t size);
+    static void ReportFree(Recycler * recycler, _In_ void *address, size_t size);
+    static void ReportUnallocated(Recycler * recycler, _In_ void* address, _In_ void *endAddress, size_t sizeCat);
 };
 
 class PageTracking
@@ -44,7 +45,7 @@ public:
     static void Activate();
     static void PageAllocatorCreated(PageAllocator *pageAllocator);
     static void PageAllocatorDestroyed(PageAllocator *pageAllocator);
-    static void ReportAllocation(PageAllocator *pageAllocator, __in void *address, size_t size);
-    static void ReportFree(PageAllocator *pageAllocator, __in void *address, size_t size);
+    static void ReportAllocation(PageAllocator *pageAllocator, _In_ void *address, size_t size);
+    static void ReportFree(PageAllocator *pageAllocator, _In_ void *address, size_t size);
 };
 }

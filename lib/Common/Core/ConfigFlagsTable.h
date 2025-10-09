@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -433,8 +434,8 @@ namespace Js
     // Methods
     public:
 
-        static  Flag            GetFlag(__in LPCWSTR str);
-        static  Phase           GetPhase(__in LPCWSTR str);
+        static  Flag            GetFlag(_In_ LPCWSTR str);
+        static  Phase           GetPhase(_In_ LPCWSTR str);
         static  void            PrintUsageString();
 
         static  FlagTypes       GetFlagType(Flag flag);

@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "CommonCorePch.h"
@@ -638,7 +639,7 @@ CmdLineArgsParser::Parse(int argc, __in_ecount(argc) LPWSTR argv[])
     return err;
 }
 
-int CmdLineArgsParser::Parse(__in LPWSTR oneArg) throw()
+int CmdLineArgsParser::Parse(_In_ LPWSTR oneArg) throw()
 {
     int err = 0;
     char16 buffer[MaxTokenSize];

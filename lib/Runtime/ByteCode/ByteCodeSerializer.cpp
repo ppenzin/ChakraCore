@@ -1,6 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft Corporation and contributors. All rights reserved.
-// Copyright (c) 2021 ChakraCore Project Contributors. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
@@ -813,7 +813,7 @@ public:
         return sizeof(SIMDValue);
     }
 
-    uint32 PrependString16(__in BufferBuilderList & builder, __in_nz LPCWSTR clue, __in_bcount_opt(byteLength) LPCWSTR sz, __in uint32 byteLength)
+    uint32 PrependString16(_In_ BufferBuilderList & builder, __in_nz LPCWSTR clue, __in_bcount_opt(byteLength) LPCWSTR sz, _In_ uint32 byteLength)
     {
         if (sz != nullptr)
         {
@@ -832,7 +832,7 @@ public:
         return PrependInt32(builder, clue, id);
     }
 
-    int GetIdOfString(__in_bcount_opt(byteLength) LPCWSTR sz, __in uint32 byteLength)
+    int GetIdOfString(__in_bcount_opt(byteLength) LPCWSTR sz, _In_ uint32 byteLength)
     {
         auto bb = Anew(alloc, ByteBuffer, byteLength, (void*)sz); // Includes trailing null
         return GetString16Id(bb);

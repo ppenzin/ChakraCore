@@ -1,6 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
-// Copyright (c) 2021 ChakraCore Project Contributors. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "RuntimeBasePch.h"
@@ -2609,7 +2609,7 @@ namespace Js
     }
 
 #ifdef ASMJS_PLAT
-    FunctionBody* ParseableFunctionInfo::ParseAsmJs(Parser * ps, __out CompileScriptException * se, __out ParseNodeProg ** parseTree)
+    FunctionBody* ParseableFunctionInfo::ParseAsmJs(Parser * ps, _Out_ CompileScriptException * se, _Out_ ParseNodeProg ** parseTree)
     {
         Assert(IsDeferredParseFunction());
         Assert(m_isAsmjsMode);
@@ -5655,7 +5655,7 @@ namespace Js
         propertyIdsForRegSlots[reg] = propId;
     }
 
-    void PropertyIdOnRegSlotsContainer::FetchItemAt(uint index, FunctionBody *pFuncBody, __out PropertyId *pPropId, __out RegSlot *pRegSlot)
+    void PropertyIdOnRegSlotsContainer::FetchItemAt(uint index, FunctionBody *pFuncBody, _Out_ PropertyId *pPropId, _Out_ RegSlot *pRegSlot)
     {
         Assert(index < length);
         Assert(pPropId);
@@ -7994,7 +7994,7 @@ namespace Js
     }
 
     /*static*/
-    void FunctionBody::GetShortNameFromUrl(__in LPCWSTR pchUrl, _Out_writes_z_(cchBuffer) LPWSTR pchShortName, __in size_t cchBuffer)
+    void FunctionBody::GetShortNameFromUrl(_In_ LPCWSTR pchUrl, _Out_writes_z_(cchBuffer) LPWSTR pchShortName, _In_ size_t cchBuffer)
     {
         LPCWSTR pchFile = wcsrchr(pchUrl, _u('/'));
         if (pchFile == nullptr)

@@ -1,6 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft Corporation and contributors. All rights reserved.
-// Copyright (c) 2021 ChakraCore Project Contributors. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -478,8 +478,8 @@ public:
 
     void Copy(const BVStatic *bv) { js_memcpy_s(&this->data[0], wordCount * sizeof(BVUnit), &bv->data[0], wordCount * sizeof(BVUnit)); }
 
-    void SetAll() { memset(&this->data[0], -1, wordCount * sizeof(BVUnit)); ClearEnd(); }
-    void ClearAll() { memset(&this->data[0], 0, wordCount * sizeof(BVUnit)); }
+    void SetAll() { memset((void*)&this->data[0], -1, wordCount * sizeof(BVUnit)); ClearEnd(); }
+    void ClearAll() { memset((void*)&this->data[0], 0, wordCount * sizeof(BVUnit)); }
 
     void ComplimentAll()
     {

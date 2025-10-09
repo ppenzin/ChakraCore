@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "RuntimeDebugPch.h"
@@ -294,7 +295,7 @@ namespace TTD
         GCTime(gcTime), MarkTime(0.0), ExtractTime(0.0)
     {
         this->m_snapObjectVTableArray = this->m_slabAllocator.SlabAllocateArray<NSSnapObjects::SnapObjectVTable>((uint32)NSSnapObjects::SnapObjectType::Limit);
-        memset(this->m_snapObjectVTableArray, 0, sizeof(NSSnapObjects::SnapObjectVTable) * (uint32)NSSnapObjects::SnapObjectType::Limit);
+        memset((void*)this->m_snapObjectVTableArray, 0, sizeof(NSSnapObjects::SnapObjectVTable) * (uint32)NSSnapObjects::SnapObjectType::Limit);
 
         this->m_snapObjectVTableArray[(uint32)NSSnapObjects::SnapObjectType::Invalid] = { nullptr, nullptr, nullptr, nullptr };
         this->m_snapObjectVTableArray[(uint32)NSSnapObjects::SnapObjectType::SnapUnhandledObject] = { nullptr, nullptr, nullptr, nullptr };

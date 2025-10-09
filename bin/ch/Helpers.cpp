@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "stdafx.h"
@@ -423,7 +424,7 @@ LPCWSTR Helpers::JsErrorCodeToString(JsErrorCode jsErrorCode)
     }
 }
 
-void Helpers::LogError(__in __nullterminated const char16 *msg, ...)
+void Helpers::LogError(_In_ __nullterminated const char16 *msg, ...)
 {
     va_list args;
     va_start(args, msg);

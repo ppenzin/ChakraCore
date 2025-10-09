@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 //  Implements Atomics according to http://tc39.github.io/ecmascript_sharedmem/shmem.html
@@ -45,6 +46,6 @@ namespace Js
         static Var ValidateSharedIntegerTypedArray(Var typedArray, ScriptContext *scriptContext, bool onlyInt32);
         static uint32 ValidateAtomicAccess(Var typedArray, Var index, ScriptContext *scriptContext);
 
-        static TypedArrayBase * ValidateAndGetTypedArray(Var typedArray, Var index, __out uint32 *accessIndex, ScriptContext *scriptContext, bool onlyInt32 = false);
+        static TypedArrayBase * ValidateAndGetTypedArray(Var typedArray, Var index, _Out_ uint32 *accessIndex, ScriptContext *scriptContext, bool onlyInt32 = false);
     };
 }

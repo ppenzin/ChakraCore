@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "CommonCorePch.h"
@@ -1243,7 +1244,7 @@ namespace Js
         {
             HANDLE hFile = (HANDLE)_get_osfhandle(_fileno(fp));
             OVERLAPPED overlapped;
-            memset(&overlapped, 0, sizeof(overlapped));
+            memset((void*)&overlapped, 0, sizeof(overlapped));
             const int lockSize = 1024 * 64;
             if (!LockFileEx(hFile, LOCKFILE_EXCLUSIVE_LOCK, 0, lockSize, 0, &overlapped))
             {

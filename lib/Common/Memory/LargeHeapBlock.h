@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -147,7 +148,7 @@ public:
     LargeHeapBlock * GetNextBlock() { return next; }
     void SetNextBlock(LargeHeapBlock * next) { this->next = next; }
     size_t GetFreeSize() const { return addressEnd - allocAddressEnd; }
-    static LargeHeapBlock * New(__in char * address, DECLSPEC_GUARD_OVERFLOW size_t pageCount, Segment * segment, DECLSPEC_GUARD_OVERFLOW uint objectCount, LargeHeapBucket* bucket);
+    static LargeHeapBlock * New(_In_ char * address, DECLSPEC_GUARD_OVERFLOW size_t pageCount, Segment * segment, DECLSPEC_GUARD_OVERFLOW uint objectCount, LargeHeapBucket* bucket);
     static void Delete(LargeHeapBlock * heapBlock);
     bool IsInPendingDisposeList() { return isInPendingDisposeList; }
     void SetIsInPendingDisposeList(bool isInPendingDisposeList) { this->isInPendingDisposeList = isInPendingDisposeList; }
@@ -220,7 +221,7 @@ private:
     friend class Recycler;
 #endif
 
-    LargeHeapBlock(__in char * address, DECLSPEC_GUARD_OVERFLOW size_t pageCount, Segment * segment, DECLSPEC_GUARD_OVERFLOW uint objectCount, LargeHeapBucket* bucket);
+    LargeHeapBlock(_In_ char * address, DECLSPEC_GUARD_OVERFLOW size_t pageCount, Segment * segment, DECLSPEC_GUARD_OVERFLOW uint objectCount, LargeHeapBucket* bucket);
     static LargeObjectHeader * GetHeaderFromAddress(void * address);
     LargeObjectHeader * GetHeader(void * address) const;
     LargeObjectHeader ** HeaderList() const;

@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 // Buffer builder is used to layout out binary content which contains offsets
@@ -35,7 +36,7 @@ namespace Js
     public:
         uint32 offset;
         virtual uint32 FixOffset(uint32 offset) = 0;
-        virtual void Write(__in_bcount(bufferSize) byte * buffer, __in uint32 bufferSize) const = 0;
+        virtual void Write(__in_bcount(bufferSize) byte * buffer, _In_ uint32 bufferSize) const = 0;
 #if DBG
     protected:
         void TraceOutput(byte * buffer, uint32 size) const;
@@ -107,7 +108,7 @@ namespace Js
             }
         }
 
-        void Write(__in_bcount(bufferSize) byte * buffer, __in uint32 bufferSize) const
+        void Write(__in_bcount(bufferSize) byte * buffer, _In_ uint32 bufferSize) const
         {
             DebugOnly(uint32 size = sizeof(T));
 
@@ -194,7 +195,7 @@ namespace Js
             return this->offset + sizeof(serialization_alignment T);
         }
 
-        void Write(__in_bcount(bufferSize) byte * buffer, __in uint32 bufferSize) const
+        void Write(__in_bcount(bufferSize) byte * buffer, _In_ uint32 bufferSize) const
         {
             if (bufferSize - this->offset<sizeof(serialization_alignment T))
             {
@@ -247,7 +248,7 @@ namespace Js
             });
         }
 
-        void Write(__in_bcount(bufferSize) byte * buffer, __in uint32 bufferSize) const
+        void Write(__in_bcount(bufferSize) byte * buffer, _In_ uint32 bufferSize) const
         {
             return list->Iterate([&](BufferBuilder * builder) {
                 builder->Write(buffer, bufferSize);
@@ -276,7 +277,7 @@ namespace Js
             return this->offset + sizeof(int);
         }
 
-        void Write(__in_bcount(bufferSize) byte * buffer, __in uint32 bufferSize) const
+        void Write(__in_bcount(bufferSize) byte * buffer, _In_ uint32 bufferSize) const
         {
             if (bufferSize - this->offset<sizeof(int))
             {
@@ -294,7 +295,7 @@ namespace Js
     {
         uint32 size;
         const byte * raw;
-        BufferBuilderRaw(LPCWSTR clue, __in uint32 size, __in_bcount(size) const byte * raw)
+        BufferBuilderRaw(LPCWSTR clue, _In_ uint32 size, __in_bcount(size) const byte * raw)
             : BufferBuilder(clue), size(size), raw(raw)
         { }
 
@@ -304,7 +305,7 @@ namespace Js
             return this->offset + size;
         }
 
-        void Write(__in_bcount(bufferSize) byte * buffer, __in uint32 bufferSize) const
+        void Write(__in_bcount(bufferSize) byte * buffer, _In_ uint32 bufferSize) const
         {
             if (bufferSize - this->offset<size)
             {
@@ -339,7 +340,7 @@ namespace Js
             return content->FixOffset(offset);
         }
 
-        void Write(__in_bcount(bufferSize) byte * buffer, __in uint32 bufferSize) const
+        void Write(__in_bcount(bufferSize) byte * buffer, _In_ uint32 bufferSize) const
         {
             if (bufferSize - this->offset < this->padding)
             {

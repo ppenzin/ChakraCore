@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #undef UNICODE
@@ -73,7 +74,7 @@ SpawnRLFE(
     if (NULStdout == INVALID_HANDLE_VALUE)
         goto cleanup;
 
-    memset(&si, 0, sizeof(si));
+    memset((void*)&si, 0, sizeof(si));
     si.cb = sizeof(si);
     si.dwFlags = STARTF_USESTDHANDLES;
     si.hStdOutput = NULStdout;

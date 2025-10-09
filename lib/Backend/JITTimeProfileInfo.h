@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
@@ -11,10 +12,10 @@ public:
     JITTimeProfileInfo(ProfileDataIDL * profileData);
 
     static void InitializeJITProfileData(
-        __in ArenaAllocator * alloc,
-        __in Js::DynamicProfileInfo * profileInfo,
-        __in Js::FunctionBody *functionBody,
-        __out ProfileDataIDL * data,
+        _In_ ArenaAllocator * alloc,
+        _In_ Js::DynamicProfileInfo * profileInfo,
+        _In_ Js::FunctionBody *functionBody,
+        _Out_ ProfileDataIDL * data,
         bool isForegroundJIT);
 
     const Js::LdLenInfo * GetLdLenInfo(Js::ProfileId ldLenId) const;

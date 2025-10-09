@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "CommonDataStructuresPch.h"
@@ -139,7 +140,7 @@ BVFixed::Length() const
 void
 BVFixed::SetAll()
 {
-    memset(&this->data[0], -1, WordCount() * sizeof(BVUnit));
+    memset((void*)&this->data[0], -1, WordCount() * sizeof(BVUnit));
     ClearEnd();
 }
 

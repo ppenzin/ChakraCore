@@ -1,7 +1,10 @@
-//
-// Copyright (c) Microsoft. All rights reserved.
-// Licensed under the MIT license. See LICENSE file in the project root for full license information. 
-//
+//-------------------------------------------------------------------------------------------------------
+// ChakraCore/Pal
+// Contains portions (c) copyright Microsoft, portions copyright (c) the .NET Foundation and Contributors
+// and edits (c) copyright the ChakraCore Contributors.
+// See THIRD-PARTY-NOTICES.txt in the project root for .NET Foundation license
+// Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
+//-------------------------------------------------------------------------------------------------------
 
 /************************************************************************* 
 *  This file documents all the macros approved for use in windows source
@@ -23,7 +26,7 @@
 *      macros such as __fallthrough (default)
 *  2 - Deprecated some old macros that should not be used
 *  3 - Use VS 2005 Source Annotation to make sure every macro 
-*      is used in the right context. For example placing __in on a return 
+*      is used in the right context. For example placing _In_ on a return 
 *      parameter will result in an error.
 *
 
@@ -150,13 +153,13 @@
 *  Buffer Annotation Examples
 * 
 *  LWSTDAPI_(BOOL) StrToIntExA(
-*      LPCSTR pszString,  //  No annotation required, const implies __in.
+*      LPCSTR pszString,  //  No annotation required, const implies _In_.
 *      DWORD dwFlags,
-*      __out int *piRet   // A pointer whose dereference will be filled in.
+*      _Out_ int *piRet   // A pointer whose dereference will be filled in.
 *  );
 * 
 *  void MyPaintingFunction(
-*      __in HWND hwndControl,     //  An initialized read-only parameter.
+*      _In_ HWND hwndControl,     //  An initialized read-only parameter.
 *      __in_opt HDC hdcOptional,  //  An initialized read-only parameter that 
 *                                 //  might be NULL.
 *      __inout IPropertyStore *ppsStore // An initialized parameter that 
@@ -168,7 +171,7 @@
 *                                         //  that will be '\0' terminated 
 *                                         //  on exit.
 *      LPCSTR pszSrc,                     //  No annotation required, 
-*                                         //  const implies __in.
+*                                         //  const implies _In_.
 *      UINT cchMax,                              
 *      DWORD dwFlags
 *  );
@@ -194,14 +197,12 @@
 #define __ecount(size)                                _SAL_VERSION_CHECK(__ecount)
 #define __bcount(size)                                _SAL_VERSION_CHECK(__bcount)
 #define __xcount(size)                                _SAL_VERSION_CHECK(__xcount)
-#define __in                                          _SAL_VERSION_CHECK(__in)
 #define __in_ecount(size)                             _SAL_VERSION_CHECK(__in_ecount)
 #define __in_bcount(size)                             _SAL_VERSION_CHECK(__in_bcount)
 #define __in_xcount(size)                             _SAL_VERSION_CHECK(__in_xcount)
 #define __in_z                                        _SAL_VERSION_CHECK(__in_z)
 #define __in_ecount_z(size)                           _SAL_VERSION_CHECK(__in_ecount_z)
 #define __in_bcount_z(size)                           _SAL_VERSION_CHECK(__in_bcount_z)
-#define __out                                         _SAL_VERSION_CHECK(__out)
 #define __out_ecount(size)                            _SAL_VERSION_CHECK(__out_ecount)
 #define __out_bcount(size)                            _SAL_VERSION_CHECK(__out_bcount)
 #define __out_xcount(size)                            _SAL_VERSION_CHECK(__out_xcount)
@@ -774,14 +775,14 @@
 *    __field_bcount_full(sz)                                     
 *    char *buf;                                                  
 *   };                                                           
-*   void InitBuf(__out struct *buf_s b,int sz) {                 
+*   void InitBuf(_Out_ struct *buf_s b,int sz) {                 
 *        b->buf = calloc(sz,sizeof(char));                       
 *        b->sz = sz;                                             
 *   }                                                            
-*   void WriteBuf(__in FILE *fp,__in struct *buf_s b) {          
+*   void WriteBuf(_In_ FILE *fp,_In_ struct *buf_s b) {          
 *     fwrite(b->buf,b->sz,sizeof(char),fp);                      
 *   }                                                            
-*   void ReadBuf(__in FILE *fp,__inout struct *buf_s b) {        
+*   void ReadBuf(_In_ FILE *fp,__inout struct *buf_s b) {        
 *     fread(b->buf,b->sz,sizeof(char),fp);                       
 *   }                                                            
 *                                                                 
@@ -793,10 +794,10 @@
 *    __field_bcount(sz)                                          
 *    char buf[1];                                                
 *   };                                                           
-*   void WriteBuf(__in FILE *fp,__in struct *buf_s b) {          
+*   void WriteBuf(_In_ FILE *fp,_In_ struct *buf_s b) {          
 *     fwrite(&(b->buf),b->sz,sizeof(char),fp);                   
 *   }                                                            
-*   void ReadBuf(__in FILE *fp,__inout struct *buf_s b) {        
+*   void ReadBuf(_In_ FILE *fp,__inout struct *buf_s b) {        
 *     fread(&(b->buf),b->sz,sizeof(char),fp);                    
 *   }                                                            
 *                                                                 
@@ -807,10 +808,10 @@
 *   struct buf_s {                                               
 *    int sz;                                                     
 *   };                                                           
-*   void WriteBuf(__in FILE *fp,__in struct *buf_s b) {          
+*   void WriteBuf(_In_ FILE *fp,_In_ struct *buf_s b) {          
 *     fwrite(&b,b->sz,sizeof(char),fp);                          
 *   }                                                            
-*   void ReadBuf(__in FILE *fp,__inout struct *buf_s b) {        
+*   void ReadBuf(_In_ FILE *fp,__inout struct *buf_s b) {        
 *     fread(&b,b->sz,sizeof(char),fp);                           
 *   }                                                            
 *

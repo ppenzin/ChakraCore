@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
@@ -23,7 +24,7 @@ public:
 
     TypeIDL * GetData();
 
-    static void BuildFromJsType(__in Js::Type * jsType, __out JITType * jitType);
+    static void BuildFromJsType(_In_ Js::Type * jsType, _Out_ JITType * jitType);
 
 private:
     Field(TypeIDL) m_data;

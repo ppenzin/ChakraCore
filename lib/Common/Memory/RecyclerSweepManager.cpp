@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "CommonMemoryPch.h"
@@ -65,7 +66,7 @@ RecyclerSweepManager::BeginSweep(Recycler * recycler)
     Assert(!recycler->IsSweeping());
     Assert(recycler->recyclerSweepManager == nullptr);
 
-    memset(this, 0, sizeof(RecyclerSweepManager));
+    memset((void*)this, 0, sizeof(RecyclerSweepManager));
     this->recycler = recycler;
     recycler->recyclerSweepManager = this;
 

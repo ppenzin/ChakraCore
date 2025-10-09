@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "RuntimeTypePch.h"
@@ -309,7 +310,7 @@ namespace Js
             // Clearing the cached functions and types isn't strictly necessary for correctness,
             // but we want those objects to be collected even if the scope object is part of someone's
             // closure environment.
-            memset(this->cache, 0, this->cachedFuncCount * sizeof(FuncCacheEntry));
+            memset((void*)this->cache, 0, this->cachedFuncCount * sizeof(FuncCacheEntry));
         }
         this->parentFunc->SetCachedScope(nullptr);
     }

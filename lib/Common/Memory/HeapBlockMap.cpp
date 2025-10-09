@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "CommonMemoryPch.h"
@@ -13,7 +14,7 @@ const uint Memory::HeapBlockMap32::L2Count;
 #endif
 
 #if defined(TARGET_64)
-HeapBlockMap32::HeapBlockMap32(__in char * startAddress) :
+HeapBlockMap32::HeapBlockMap32(_In_ char * startAddress) :
     startAddress(startAddress),
 #else
 HeapBlockMap32::HeapBlockMap32() :

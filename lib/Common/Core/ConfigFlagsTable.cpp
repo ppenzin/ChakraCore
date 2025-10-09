@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "CommonCorePch.h"
@@ -837,7 +838,7 @@ namespace Js
     ///----------------------------------------------------------------------------
 
     Flag
-    ConfigFlagsTable::GetFlag(__in LPCWSTR str)
+    ConfigFlagsTable::GetFlag(_In_ LPCWSTR str)
     {
         for(int i=0; i < FlagCount; i++)
         {
@@ -859,7 +860,7 @@ namespace Js
     ///----------------------------------------------------------------------------
 
     Phase
-    ConfigFlagsTable::GetPhase(__in LPCWSTR str)
+    ConfigFlagsTable::GetPhase(_In_ LPCWSTR str)
     {
         for(int i=0; i < PhaseCount; i++)
         {

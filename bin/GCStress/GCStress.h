@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -148,7 +149,7 @@ public:
                     VerifyCondition(found);
 
                     // Zero pointers in order to eliminate false-positives
-                    memset(holder, 0, heapObject.GetSize());
+                    memset((void*)holder, 0, heapObject.GetSize());
 
                     bool success = heapObject.ClearImplicitRootBit();
                     VerifyCondition(success);

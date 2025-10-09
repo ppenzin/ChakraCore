@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "CommonMemoryPch.h"
@@ -128,7 +129,7 @@ PVOID MapView(HANDLE process, HANDLE sectionHandle, size_t size, size_t offset, 
 }
 
 #if defined(TARGET_64)
-SectionMap32::SectionMap32(__in char * startAddress) :
+SectionMap32::SectionMap32(_In_ char * startAddress) :
     startAddress(startAddress),
 #else
 SectionMap32::SectionMap32() :

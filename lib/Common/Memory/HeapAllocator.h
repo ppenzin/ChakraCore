@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #define HeapNew(T, ...) AllocatorNew(HeapAllocator, &HeapAllocator::Instance, T, __VA_ARGS__)
@@ -207,7 +208,7 @@ public:
 
     static void InitializeThread()
     {
-        memset(&nextAllocData, 0, sizeof(nextAllocData));
+        memset((void*)&nextAllocData, 0, sizeof(nextAllocData));
     }
 
     static bool CheckLeaks();

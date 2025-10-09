@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "RuntimeTypePch.h"
@@ -506,7 +507,7 @@ namespace Js
         return false;
     }
 
-    BOOL RecyclableObject::StrictEquals(__in Var aRight, __out BOOL* value, ScriptContext * requestContext)
+    BOOL RecyclableObject::StrictEquals(_In_ Var aRight, _Out_ BOOL* value, ScriptContext * requestContext)
     {
         *value = false;
         //StrictEquals is handled in JavascriptOperators::StrictEqual
@@ -514,7 +515,7 @@ namespace Js
     }
 
 #pragma fenv_access (on)
-    BOOL RecyclableObject::Equals(__in Var aRight, __out BOOL* value, ScriptContext * requestContext)
+    BOOL RecyclableObject::Equals(_In_ Var aRight, _Out_ BOOL* value, ScriptContext * requestContext)
     {
         Var aLeft = this;
         if (aLeft == aRight)

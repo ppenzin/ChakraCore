@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
@@ -13,9 +14,9 @@ JITTimePolymorphicInlineCacheInfo::JITTimePolymorphicInlineCacheInfo()
 /* static */
 void
 JITTimePolymorphicInlineCacheInfo::InitializeEntryPointPolymorphicInlineCacheInfo(
-    __in Recycler * recycler,
-    __in Js::EntryPointPolymorphicInlineCacheInfo * runtimeInfo,
-    __out CodeGenWorkItemIDL * jitInfo)
+    _In_ Recycler * recycler,
+    _In_ Js::EntryPointPolymorphicInlineCacheInfo * runtimeInfo,
+    _Out_ CodeGenWorkItemIDL * jitInfo)
 {
     if (runtimeInfo == nullptr)
     {
@@ -51,9 +52,9 @@ JITTimePolymorphicInlineCacheInfo::InitializeEntryPointPolymorphicInlineCacheInf
 /* static */
 void
 JITTimePolymorphicInlineCacheInfo::InitializePolymorphicInlineCacheInfo(
-    __in Recycler * recycler,
-    __in Js::PolymorphicInlineCacheInfo * runtimeInfo,
-    __out PolymorphicInlineCacheInfoIDL * jitInfo)
+    _In_ Recycler * recycler,
+    _In_ Js::PolymorphicInlineCacheInfo * runtimeInfo,
+    _Out_ PolymorphicInlineCacheInfoIDL * jitInfo)
 {
 #pragma warning(suppress: 6001)
     jitInfo->polymorphicCacheUtilizationArray = runtimeInfo->GetUtilByteArray();

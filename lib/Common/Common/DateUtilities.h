@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -29,7 +30,7 @@ namespace Js
         static const double ticksPerMillisecondDouble;
         static const INT64 jsEpochMilliseconds;
 #ifdef INTL_WINGLOB
-        static HRESULT ES5DateToWinRTDate(double es5Date, __out INT64* pResult);
+        static HRESULT ES5DateToWinRTDate(double es5Date, _Out_ INT64* pResult);
 #endif
         static double TimeFromSt(SYSTEMTIME *pst);
         static double DayTimeFromSt(SYSTEMTIME *pst);

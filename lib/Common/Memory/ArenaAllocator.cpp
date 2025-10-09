@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "CommonMemoryPch.h"
@@ -41,7 +42,7 @@ void ArenaData::UpdateCacheBlock() const
 
 template <class TFreeListPolicy, size_t ObjectAlignmentBitShiftArg, bool RequireObjectAlignment, size_t MaxObjectSize>
 ArenaAllocatorBase<TFreeListPolicy, ObjectAlignmentBitShiftArg, RequireObjectAlignment, MaxObjectSize>::
-ArenaAllocatorBase(__in LPCWSTR name, PageAllocator * pageAllocator, void(*outOfMemoryFunc)(), void(*recoverMemoryFunc)()) :
+ArenaAllocatorBase(_In_ LPCWSTR name, PageAllocator * pageAllocator, void(*outOfMemoryFunc)(), void(*recoverMemoryFunc)()) :
     Allocator(outOfMemoryFunc, recoverMemoryFunc),
     ArenaData(pageAllocator),
 #ifdef ARENA_ALLOCATOR_FREE_LIST_SIZE
@@ -1051,7 +1052,7 @@ void * InlineCacheFreeListPolicy::Allocate(void * policy, size_t size)
 
 #ifdef ARENA_MEMORY_VERIFY
         // Make sure the next pointer bytes are also DbgFreeMemFill-ed, before we give them out.
-        memset(&freeObject->next, DbgFreeMemFill, sizeof(freeObject->next));
+        memset((void*)&freeObject->next, DbgFreeMemFill, sizeof(freeObject->next));
 #endif
     }
 

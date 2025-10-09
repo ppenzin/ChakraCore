@@ -1,5 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -263,12 +264,12 @@ namespace Js
 
         bool IsHostManagedSource() const;
 
-        static hash_t StaticGetHashCode(__in const Utf8SourceInfo* const si)
+        static hash_t StaticGetHashCode(_In_ const Utf8SourceInfo* const si)
         {
             return si->GetSourceHolder()->GetHashCode();
         }
 
-        static bool StaticEquals(__in Utf8SourceInfo* s1, __in Utf8SourceInfo* s2)
+        static bool StaticEquals(_In_ Utf8SourceInfo* s1, _In_ Utf8SourceInfo* s2)
         {
             if (s1 == nullptr || s2 == nullptr) return false;
 
