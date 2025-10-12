@@ -62,6 +62,8 @@ private:
     Js::ParseableFunctionInfo * pRootFunc;
 
     SList<FuncInfo*> * funcInfosToFinalize;
+    SList<ParseNode*> * nodesToTrackForYield;
+    SList<ParseNode*> * nodesWithYield;
 
     using JumpCleanupList = DList<JumpCleanupInfo, ArenaAllocator>;
     JumpCleanupList* jumpCleanupList;
@@ -484,6 +486,11 @@ public:
     void PopJumpCleanup() { this->jumpCleanupList->RemoveHead(); }
     bool HasJumpCleanup() { return !this->jumpCleanupList->Empty(); }
     void EmitJumpCleanup(ParseNode* target, FuncInfo* funcInfo);
+
+    void ByteCodeGenerator::SetHasYield();
+    bool ByteCodeGenerator::GetHasYield(ParseNode* node);
+    void ByteCodeGenerator::PopTrackForYield(ParseNode* node);
+    void ByteCodeGenerator::PushTrackForYield(ParseNode* node);
 
 private:
     bool NeedCheckBlockVar(Symbol* sym, Scope* scope, FuncInfo* funcInfo) const;

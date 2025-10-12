@@ -4,7 +4,7 @@
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 
-function main() {
+function testOne() {
     const v2 = [13.37,13.37,13.37,13.37,13.37];
     async function v4(v5,v6,v7,v8) {
         const v10 = 0;
@@ -26,8 +26,82 @@ function main() {
             const v38 = --v33;
         }
         const v39 = 128;
-        print("pass")
     }
-v4("vEBD7ei78q");
+    return v4("vEBD7ei78q");
 }
-main();
+
+// BugIssue #7034
+function testTwo() {
+    let finallyCount = 0;
+    let throwCount = 0;
+    async function asyncFinally() {
+        for (let i = 0; i < 1000; ++i){
+            try {
+                if (i > 170) {
+                    ++throwCount;
+                    throw 1;
+                }
+            }
+            finally {
+                ++finallyCount;
+            }
+        }
+    }
+    return asyncFinally ().catch((e) => {
+        if (throwCount != 1) {
+            throw new Error ("Wrong number of throws within async function expected 1 but received " + throwCount);
+        }
+        if (e != 1) {
+            throw new Error ("Wrong value thrown from async function expected 1 but received " + e);
+        }
+        if (finallyCount != 172) {
+            throw new Error ("Wrong number of finally calls from async function expected 172 but received " + finallyCount);
+        }
+    });
+}
+
+function testThree() {
+    let finallyCount = 0;
+    let throwCount = 0;
+    async function asyncFinallyAwait() {
+        for (let i = 0; i < 1000; ++i){
+            try {
+                if (i > 170) {
+                    ++throwCount;
+                    throw 1;
+                }
+            }
+            finally {
+                await 5;
+                ++finallyCount;
+            }
+        }
+    }
+    return asyncFinallyAwait().catch((e) => {
+        if (throwCount != 1) {
+            throw new Error ("Wrong number of throws within async function expected 1 but received " + throwCount);
+        }
+        if (e != 1) {
+            throw new Error ("Wrong value thrown from async function expected 1 but received " + e);
+        }
+        if (finallyCount != 172) {
+            throw new Error ("Wrong number of finally calls from async function expected 172 but received " + finallyCount);
+        }
+    });
+}
+
+// BugIssue #7016
+function testFour()
+{
+    async function test() {
+        var i8 = new Int8Array(256);
+        var IntArr0 = [];
+        for (var _strvar1 of i8) {
+            for (var _strvar1 of IntArr0) {}
+        }
+    }
+    return test();
+}
+
+
+Promise.all([testOne(), testTwo(), testThree(), testFour()]).then(()=>{print("pass")}, (e)=>{print (e)});
