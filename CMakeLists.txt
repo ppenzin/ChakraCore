@@ -372,7 +372,7 @@ if(CLR_CMAKE_PLATFORM_XPLAT)
         -D__STDC_WANT_LIB_EXT1__=1
         )
 
-    set(CMAKE_CXX_STANDARD 14)
+    set(CMAKE_CXX_STANDARD 17)
     set(CMAKE_CXX_STANDARD_REQUIRED On)
 
     # todo: fix general visibility of the interface

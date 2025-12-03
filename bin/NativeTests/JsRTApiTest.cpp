@@ -1,6 +1,6 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
-// Copyright (c) 2021 ChakraCore Project Contributors. All rights reserved.
+// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #include "stdafx.h"
@@ -110,6 +110,20 @@ namespace JsRTApiTest
         JsRTApiTest::RunWithAttributes(JsRTApiTest::ReferenceCountingTest);
     }
 
+    __declspec(noinline) static void ClearStack()
+    {
+        // https://github.com/bdwgc/bdwgc/blob/e1042aa86d9403f433a2ab38ee2aab081984fca8/misc.c#L260-L285
+
+        constexpr int SMALL_CLEAR_SIZE = 256;
+        volatile void *dummy[SMALL_CLEAR_SIZE];
+
+        // https://news.ycombinator.com/item?id=4711605
+        // Zero memory + prevent compiler optimizations
+        volatile unsigned char *bp = (unsigned char *)dummy;
+        while (bp < (unsigned char *)dummy + sizeof(dummy))
+            *bp++ = 0;
+    }
+
     void WeakReferenceTest(JsRuntimeAttributes attributes, JsRuntimeHandle runtime)
     {
         JsValueRef valueRef = JS_INVALID_REFERENCE;
@@ -128,6 +142,7 @@ namespace JsRTApiTest
         valueRef = JS_INVALID_REFERENCE;
         valueRefFromWeakRef = JS_INVALID_REFERENCE;
 
+        ClearStack();
         CHECK(JsCollectGarbage(runtime) == JsNoError);
 
         // JsGetWeakReferenceValue should return an invalid reference after the value was GC'd.
