@@ -219,6 +219,12 @@ void Visit(ParseNode *pnode, ByteCodeGenerator* byteCodeGenerator, PrefixFn pref
     prefix(pnode, byteCodeGenerator);
     switch (pnode->nop)
     {
+    case knopYield:
+    case knopYieldLeaf:
+    case knopYieldStar:
+    case knopAwait:
+        byteCodeGenerator->SetHasYield();
+    // fall through to default
     default:
     {
         uint flags = ParseNode::Grfnop(pnode->nop);
@@ -245,6 +251,7 @@ void Visit(ParseNode *pnode, ByteCodeGenerator* byteCodeGenerator, PrefixFn pref
         break;
 
     case knopArrayPattern:
+        byteCodeGenerator->PushTrackForYield(pnode);
         if (!byteCodeGenerator->InDestructuredPattern())
         {
             byteCodeGenerator->SetInDestructuredPattern(true);
@@ -255,6 +262,7 @@ void Visit(ParseNode *pnode, ByteCodeGenerator* byteCodeGenerator, PrefixFn pref
         {
             Visit(pnode->AsParseNodeUni()->pnode1, byteCodeGenerator, prefix, postfix);
         }
+        byteCodeGenerator->PopTrackForYield(pnode);
         break;
 
     case knopCall:
@@ -379,11 +387,13 @@ void Visit(ParseNode *pnode, ByteCodeGenerator* byteCodeGenerator, PrefixFn pref
     case knopForOf:
     case knopForAwaitOf:
         BeginVisitBlock(pnode->AsParseNodeForInOrForOf()->pnodeBlock, byteCodeGenerator);
+        byteCodeGenerator->PushTrackForYield(pnode);
         Visit(pnode->AsParseNodeForInOrForOf()->pnodeLval, byteCodeGenerator, prefix, postfix);
         Visit(pnode->AsParseNodeForInOrForOf()->pnodeObj, byteCodeGenerator, prefix, postfix);
         byteCodeGenerator->EnterLoop();
         Visit(pnode->AsParseNodeForInOrForOf()->pnodeBody, byteCodeGenerator, prefix, postfix, pnode);
         byteCodeGenerator->ExitLoop();
+        byteCodeGenerator->PopTrackForYield(pnode);
         EndVisitBlock(pnode->AsParseNodeForInOrForOf()->pnodeBlock, byteCodeGenerator);
         break;
     // PTNODE(knopReturn     , "return"    ,None    ,Uni  ,fnopNone)
@@ -441,8 +451,10 @@ void Visit(ParseNode *pnode, ByteCodeGenerator* byteCodeGenerator, PrefixFn pref
         break;
     // PTNODE(knopTryCatchFinally,"try-catch-finally",None,TryCatchFinally,fnopCleanup)
     case knopTryFinally:
+        byteCodeGenerator->PushTrackForYield(pnode);
         Visit(pnode->AsParseNodeTryFinally()->pnodeTry, byteCodeGenerator, prefix, postfix, pnode);
         Visit(pnode->AsParseNodeTryFinally()->pnodeFinally, byteCodeGenerator, prefix, postfix, pnode);
+        byteCodeGenerator->PopTrackForYield(pnode);
         break;
     // PTNODE(knopTryCatch      , "try-catch" ,None    ,TryCatch  ,fnopCleanup)
     case knopTryCatch:
@@ -728,6 +740,8 @@ ByteCodeGenerator::ByteCodeGenerator(Js::ScriptContext* scriptContext, Js::Scope
     flags(0),
     funcInfoStack(nullptr),
     jumpCleanupList(nullptr),
+    nodesToTrackForYield(nullptr),
+    nodesWithYield(nullptr),
     pRootFunc(nullptr),
     pCurrentFunction(nullptr),
     globalScope(nullptr),
@@ -767,6 +781,52 @@ void ByteCodeGenerator::AddFuncInfoToFinalizationSet(FuncInfo * funcInfo)
     }
 
     this->funcInfosToFinalize->Prepend(funcInfo);
+}
+
+void ByteCodeGenerator::PushTrackForYield(ParseNode* node)
+{
+    if (this->nodesToTrackForYield == nullptr)
+    {
+        this->nodesToTrackForYield = Anew(alloc, SList<ParseNode*>, alloc);
+    }
+    this->nodesToTrackForYield->Push(node);
+}
+
+void ByteCodeGenerator::PopTrackForYield(ParseNode* node)
+{
+    Assert (this->nodesToTrackForYield != nullptr);
+    Assert (this->nodesToTrackForYield->Top() == node);
+    this->nodesToTrackForYield->Pop();
+    if (this->nodesToTrackForYield->Empty())
+    {
+        this->nodesToTrackForYield = nullptr;
+    }
+    else if (this->GetHasYield(node))
+    {
+        this->SetHasYield();
+    }
+}
+
+void ByteCodeGenerator::SetHasYield()
+{
+    if (this->nodesToTrackForYield != nullptr)
+    {
+        Assert(!this->nodesToTrackForYield->Empty());
+        if (this->nodesWithYield == nullptr)
+        {
+            this->nodesWithYield = Anew(alloc, SList<ParseNode*>, alloc);
+        }
+        this->nodesWithYield->Push(this->nodesToTrackForYield->Top());
+    }
+}
+
+bool ByteCodeGenerator::GetHasYield(ParseNode* pnode)
+{
+    if (this->nodesWithYield != nullptr && this->nodesWithYield->Has(pnode))
+    {
+        return true;
+    }
+    return false;
 }
 
 /* static */
@@ -2203,6 +2263,8 @@ void ByteCodeGenerator::Begin(
     this->envDepth = 0;
     this->trackEnvDepth = false;
     this->funcInfosToFinalize = nullptr;
+    this->nodesToTrackForYield = nullptr;
+    this->nodesWithYield = nullptr;
 
     this->funcInfoStack = Anew(alloc, SList<FuncInfo*>, alloc);
     this->jumpCleanupList = Anew(alloc, JumpCleanupList, alloc);

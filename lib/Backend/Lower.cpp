@@ -2605,6 +2605,9 @@ Lowerer::LowerRange(IR::Instr *instrStart, IR::Instr *instrEnd, bool defaultDoFa
             instrPrev = this->LowerTry(instr, true /*try-catch*/);
             break;
 
+        case Js::OpCode::TryFinallyWithYield:
+            // TODO Implement TryFinallyWithYield  before enabling Jit on full async functions
+            AssertOrFailFastMsg(false, "TryFinallyWithYield not implemented in Jit, should not be trying to Jit this function.");
         case Js::OpCode::TryFinally:
             instrPrev = this->LowerTry(instr, false /*try-finally*/);
             break;
