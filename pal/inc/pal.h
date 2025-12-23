@@ -2998,7 +2998,11 @@ typedef struct DECLSPEC_ALIGN(16) _CONTEXT {
     // Integer registers
     //
 
+#ifdef __linux__
+    /* +0x004 */ DWORD PState;
+#else
     /* +0x004 */ DWORD Cpsr;       // NZVF + DAIF + CurrentEL + SPSel
+#endif
     /* +0x008 */ union {
                     struct {
                         DWORD64 X0;

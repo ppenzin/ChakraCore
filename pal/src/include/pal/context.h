@@ -187,7 +187,9 @@ typedef ucontext_t native_context_t;
 #define MCREG_Sp(mc)      ((mc).sp)
 #define MCREG_Pc(mc)      ((mc).pc)
 #define MCREG_PState(mc)  ((mc).pstate)
+#ifndef __linux__
 #define MCREG_Cpsr(mc)    ((mc).cpsr)
+#endif
 #else
     // For FreeBSD, as found in x86/ucontext.h
 #define MCREG_Rbp(mc)	    ((mc).mc_rbp)

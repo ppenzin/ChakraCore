@@ -20,5 +20,7 @@
 #include "PlatformAgnostic/AssemblyCommon.h"
 
 #if !defined(_WIN32) && defined(DEBUG)
+// This define from sal.h conflicts with Linux's signal.h
+#undef __reserved
 #include <signal.h> // raise(SIGINT)
 #endif

@@ -396,7 +396,7 @@ namespace Js
 
         if (FACILITY_CONTROL == HRESULT_FACILITY(hr) || FACILITY_JSCRIPT == HRESULT_FACILITY(hr))
         {
-#if !(defined(_M_ARM) && defined(__clang__))
+#if !((defined(_M_ARM) || defined(_M_ARM64)) && defined(__clang__))
             if (argList != nullptr)
 #endif
             {

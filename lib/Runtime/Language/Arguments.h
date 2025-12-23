@@ -13,6 +13,14 @@
     va_list _vl;                                                    \
     va_start(_vl, callInfo);                                        \
     Js::Var* va = (Js::Var*)_vl
+#elif defined(_ARM64_) && defined(__linux__)
+// AAPCS64 (Linux ARM64 ABI) reference:
+// https://github.com/ARM-software/abi-aa/blob/main/aapcs64/aapcs64.rst#appendix-variable-argument-lists
+#define DECLARE_ARGS_VARARRAY(va, ...)                              \
+    va_list _vl;                                                    \
+    va_start(_vl, callInfo);                                        \
+    Js::Var* va = (Js::Var*)_vl.__stack + 2;                        \
+    Assert(*reinterpret_cast<Js::CallInfo*>(va - 1) == callInfo)
 #else
 // We use a custom calling convention to invoke JavascriptMethod based on
 // System ABI. At entry of JavascriptMethod the stack layout is:
@@ -84,8 +92,19 @@ inline int _count_args(const T1&, const T2&, const T3&, const T4&, const T5&, Js
 #define CALL_ENTRYPOINT_NOASSERT(entryPoint, function, callInfo, ...) \
     entryPoint(function, callInfo, ##__VA_ARGS__)
 #elif defined (_ARM64_)
+#ifdef __linux__
+// Linux ARM64 uses AAPCS64: first 8 args in x0-x7, rest via stack.
+// Fill x2-x7 with nulls here to force the expected stack layout:
+// [RetAddr] [function] [callInfo] [args...]
+#define CALL_ENTRYPOINT_NOASSERT(entryPoint, function, callInfo, ...) \
+    entryPoint(function, callInfo, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, \
+               function, callInfo, ##__VA_ARGS__)
+#else
+// macOS has own bespoke vararg cc (DarwinPCS), varargs always passed via stack.
+// Duplicate function/callInfo so they are pushed onto stack as part of varargs.
 #define CALL_ENTRYPOINT_NOASSERT(entryPoint, function, callInfo, ...) \
     entryPoint(function, callInfo, function, callInfo, ##__VA_ARGS__)
+#endif
 #else
 #error CALL_ENTRYPOINT_NOASSERT not yet implemented
 #endif

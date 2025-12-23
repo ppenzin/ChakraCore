@@ -95,7 +95,9 @@ SET_DEFAULT_DEBUG_CHANNEL(MISC);
 #ifdef __LINUX__
 // There is no reasonable way to get the max. value for the VAS on
 // Linux, so just hardcode the ABI values for 64 and 32bits.
-#ifdef LINUX64
+#if defined(_M_ARM64)
+#define MAX_PROCESS_VA_SPACE_LINUX (1ull << 48)
+#elif defined(LINUX64)
 // The hardware limit for x86-64 CPUs is 256TB, but the practical
 // limit at the moment for Linux kernels is 128TB.  See for example:
 // https://access.redhat.com/articles/rhel-limits

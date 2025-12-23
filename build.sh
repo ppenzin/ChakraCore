@@ -620,7 +620,7 @@ if [[ $ARCH =~ "x86" ]]; then
 elif [[ $ARCH =~ "arm" ]]; then
     ARCH="-DCC_TARGETS_ARM_SH=1"
     echo "Compile Target : arm"
-elif [[ $ARCH =~ "arm64" ]]; then
+elif [[ $ARCH =~ "arm64" || $ARCH =~ "aarch64" ]]; then
     ARCH="-DCC_TARGETS_ARM64_SH=1"
     echo "Compile Target : arm64"
 elif [[ $ARCH =~ "amd64" ]]; then
@@ -634,7 +634,7 @@ fi
 echo Generating $BUILD_TYPE build
 echo $EXTRA_DEFINES
 cmake $CMAKE_GEN -DCHAKRACORE_BUILD_SH=ON $CC_PREFIX $CMAKE_ICU $LTO $LTTNG \
-    $STATIC_LIBRARY $ARCH $TARGET_OS \ $ENABLE_CC_XPLAT_TRACE $EXTRA_DEFINES \
+    $STATIC_LIBRARY $ARCH $TARGET_OS $ENABLE_CC_XPLAT_TRACE $EXTRA_DEFINES \
     -DCMAKE_BUILD_TYPE=$BUILD_TYPE $SANITIZE $NO_JIT $CMAKE_INTL \
     $WITHOUT_FEATURES $WB_FLAG $WB_ARGS $CMAKE_EXPORT_COMPILE_COMMANDS \
     $LIBS_ONLY_BUILD $VALGRIND $BUILD_RELATIVE_DIRECTORY $CCACHE_NAME

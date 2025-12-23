@@ -122,12 +122,21 @@ typedef int __ptrace_request;
     ASSIGN_REG(R11)     \
     ASSIGN_REG(R12)
 #elif defined(_ARM64_)
+#ifdef __linux__
+#define ASSIGN_CONTROL_REGS \
+    ASSIGN_REG(PState)  \
+    ASSIGN_REG(Fp)      \
+    ASSIGN_REG(Sp)      \
+    ASSIGN_REG(Lr)      \
+    ASSIGN_REG(Pc)
+#else
 #define ASSIGN_CONTROL_REGS \
     ASSIGN_REG(Cpsr)    \
     ASSIGN_REG(Fp)      \
     ASSIGN_REG(Sp)      \
     ASSIGN_REG(Lr)      \
     ASSIGN_REG(Pc)
+#endif
 
 #define ASSIGN_INTEGER_REGS \
     ASSIGN_REG(X0)      \
@@ -544,6 +553,45 @@ CONTEXT_SetThreadContext(
    EXIT:
      return ret;
 }
+
+#if defined(__linux__) && defined(_ARM64_)
+// Reference: https://github.com/dotnet/runtime/blob/main/src/coreclr/pal/src/thread/context.cpp#L927
+static inline fpsimd_context* _GetNativeSigSimdContext(unsigned char* data, size_t size)
+{
+    size_t pos = 0;
+    while (pos < size)
+    {
+        _aarch64_ctx* ctx = reinterpret_cast<_aarch64_ctx*>(&data[pos]);
+        if (pos + sizeof(_aarch64_ctx) > size)
+        {
+            break;
+        }
+        if (ctx->magic == FPSIMD_MAGIC)
+        {
+            return reinterpret_cast<fpsimd_context*>(ctx);
+        }
+        if (ctx->magic == EXTRA_MAGIC)
+        {
+            extra_context* extra = reinterpret_cast<extra_context*>(ctx);
+            fpsimd_context* fp = _GetNativeSigSimdContext(reinterpret_cast<unsigned char*>(extra->datap), extra->size);
+            if (fp) return fp;
+        }
+        if (ctx->size == 0) {
+            break;
+        }
+        pos += ctx->size;
+    }
+    return nullptr;
+}
+
+static inline fpsimd_context* GetNativeSigSimdContext(native_context_t* native) {
+    return _GetNativeSigSimdContext(static_cast<unsigned char*>(native->uc_mcontext.__reserved), sizeof(native->uc_mcontext.__reserved));
+}
+
+static inline const fpsimd_context* GetConstNativeSigSimdContext(const native_context_t* native) {
+    return GetNativeSigSimdContext(const_cast<native_context_t*>(native));
+}
+#endif
 
 /*++
 Function :

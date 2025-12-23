@@ -6,6 +6,8 @@
 #include "Runtime.h"
 #include "ChakraPlatform.h"
 
+// This define from sal.h conflicts with Linux's signal.h
+#undef __reserved
 #include <signal.h>
 #include <errno.h>
 #include <unistd.h>

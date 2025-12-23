@@ -33,4 +33,9 @@ extern "C" VOID arm64_SAVE_REGISTERS(void*);
  */
 
 const DWORD ReturnAddrOffsetFromFramePtr = 1;
+#ifdef __linux__
+// Linux ARM64 appears to have some extra 8 byte padding.
+const DWORD ArgOffsetFromFramePtr = 4;
+#else
 const DWORD ArgOffsetFromFramePtr = 2;
+#endif
