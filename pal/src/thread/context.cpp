@@ -584,11 +584,13 @@ static inline fpsimd_context* _GetNativeSigSimdContext(unsigned char* data, size
     return nullptr;
 }
 
-static inline fpsimd_context* GetNativeSigSimdContext(native_context_t* native) {
+static inline fpsimd_context* GetNativeSigSimdContext(native_context_t* native)
+{
     return _GetNativeSigSimdContext(static_cast<unsigned char*>(native->uc_mcontext.__reserved), sizeof(native->uc_mcontext.__reserved));
 }
 
-static inline const fpsimd_context* GetConstNativeSigSimdContext(const native_context_t* native) {
+static inline const fpsimd_context* GetConstNativeSigSimdContext(const native_context_t* native)
+{
     return GetNativeSigSimdContext(const_cast<native_context_t*>(native));
 }
 #endif

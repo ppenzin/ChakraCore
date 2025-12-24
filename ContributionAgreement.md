@@ -45,3 +45,4 @@ This agreement has been signed by:
 |Ryoichi Kaida| camcam-lemon|
 |Lukas Kurz| ShortDevelopment|
 |Paul Pluzhnikov|EmployedRussian|
+|Ivan Krasilnikov|ivankra|
