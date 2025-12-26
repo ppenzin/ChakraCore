@@ -707,7 +707,7 @@ def main():
     # Set the right timezone, the tests need Pacific Standard Time
     # TODO: Windows. time.tzset only supports Unix
     if hasattr(time, 'tzset'):
-        os.environ['TZ'] = 'US/Pacific'
+        os.environ['TZ'] = 'America/Los_Angeles'
         time.tzset()
     elif sys.platform == 'win32':
         os.system('tzutil /s "Pacific Standard time"')
