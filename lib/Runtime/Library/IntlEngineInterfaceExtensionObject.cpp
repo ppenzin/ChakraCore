@@ -2257,14 +2257,14 @@ DEFINE_ISXLOCALEAVAILABLE(PR, uloc)
         Field(ScriptContext *) sc;
         Field(UNumberFormatFields *) fields;
 
-        static const UNumberFormatFields UnsetField = static_cast<UNumberFormatFields>(0xFFFFFFFF);
+        static const uint8_t UnsetField = 0xFF;
 
         JavascriptString *GetPartTypeString(UNumberFormatFields field)
         {
             JavascriptLibrary *library = sc->GetLibrary();
 
             // this is outside the switch because MSVC doesn't like that UnsetField is not a valid enum value
-            if (field == UnsetField)
+            if ((static_cast<uint32_t>(field) & 0xFF) == UnsetField)
             {
                 return library->GetIntlLiteralPartString();
             }
