@@ -50,22 +50,29 @@
 
 namespace Js
 {
-    NUMBER_UTIL_INLINE uint32 &NumberUtilities::LuHiDbl(double &dbl)
+    union DoubleAccessor
     {
+        double d;
+        struct
+        {
 #if defined(__BIG_ENDIAN__)
-        return ((uint32 *)&dbl)[0];
-#else //!BIG_ENDIAN
-        return ((uint32 *)&dbl)[1];
-#endif //!BIG_ENDIAN
+            uint32 hi;
+            uint32 lo;
+#else
+            uint32 lo;
+            uint32 hi;
+#endif
+        } u;
+    };
+
+    NUMBER_UTIL_INLINE uint32_aliased &NumberUtilities::LuHiDbl(double_aliased &dbl)
+    {
+        return reinterpret_cast<DoubleAccessor*>(&dbl)->u.hi;
     }
 
-    NUMBER_UTIL_INLINE uint32 &NumberUtilities::LuLoDbl(double &dbl)
+    NUMBER_UTIL_INLINE uint32_aliased &NumberUtilities::LuLoDbl(double_aliased &dbl)
     {
-#if defined(__BIG_ENDIAN__)
-        return ((uint32 *)&dbl)[1];
-#else //!BIG_ENDIAN
-        return ((uint32 *)&dbl)[0];
-#endif //!BIG_ENDIAN
+        return reinterpret_cast<DoubleAccessor*>(&dbl)->u.lo;
     }
 
 #if defined(_M_X64) && defined(_MSC_VER) && !defined(__clang__)

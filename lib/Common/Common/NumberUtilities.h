@@ -84,6 +84,14 @@ namespace Js
 
     };
 
+#ifdef __clang__
+    typedef uint32 uint32_aliased __attribute__((__may_alias__));
+    typedef double double_aliased __attribute__((__may_alias__));
+#else
+    typedef uint32 uint32_aliased;
+    typedef double double_aliased;
+#endif
+
     class NumberUtilities : public NumberUtilitiesBase
     {
     public:
@@ -92,8 +100,8 @@ namespace Js
         static uint32 MulLu(uint32 lu1, uint32 lu2, uint32 *pluHi);
         static int AddLu(uint32 *plu1, uint32 lu2);
 
-        static uint32 &LuHiDbl(double &dbl);
-        static uint32 &LuLoDbl(double &dbl);
+        static uint32_aliased &LuHiDbl(double_aliased &dbl);
+        static uint32_aliased &LuLoDbl(double_aliased &dbl);
         static INT64 TryToInt64(double d);
         static bool IsValidTryToInt64(__int64 value);   // Whether TryToInt64 resulted in a valid value.
 
