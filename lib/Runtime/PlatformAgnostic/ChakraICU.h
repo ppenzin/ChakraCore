@@ -1,6 +1,5 @@
 //-------------------------------------------------------------------------------------------------------
 // Copyright (C) Microsoft. All rights reserved.
-// Copyright (c) ChakraCore Project Contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.txt file in the project root for full license information.
 //-------------------------------------------------------------------------------------------------------
 #pragma once
@@ -46,20 +45,6 @@
 #include "unicode/unorm2.h"
 #include "unicode/upluralrules.h"
 #endif // ifdef WINDOWS10_ICU
-
-// Use PAL wrappers for Linux arm64 to fix wchar_t/char16_t mismatches.
-// Cannot go before system unicode headers - here is the earliest
-// possible point to override these.
-#if defined(_ARM64_) && defined(__linux__)
-#define wcschr  PAL_wcschr
-#define wcscmp  PAL_wcscmp
-#define wcslen  PAL_wcslen
-#define wcsncmp PAL_wcsncmp
-#define wcsrchr PAL_wcsrchr
-#define wcsstr  PAL_wcsstr
-#define wmemcmp PAL_wmemcmp
-#define wprintf PAL_wprintf
-#endif
 
 // Different assertion code is used in ChakraFull that enforces that messages are char literals
 #ifdef _CHAKRACOREBUILD

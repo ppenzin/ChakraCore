@@ -49,6 +49,18 @@ Abstract:
 #include <ctype.h>
 #endif
 
+// On some Linux distros, these system headers and their dependencies
+// (included through unicode headers in ChakraICU.h during ICU-enabled
+// builds in particular) contain macros like `#undef wcslen`, which
+// conflict with our PAL_* macros. As a workaround, include these system
+// headers early in front of our PAL_* definitions, so that when they
+// are included again later on, they would not undefine our macros.
+#if defined(PLATFORM_UNIX) && defined(HAS_ICU) && defined(PAL_STDCPP_COMPAT) && __cplusplus >= 201703L
+#include <cwchar>
+#include <string>
+#include <string_view>
+#endif
+
 #if !defined(static_assert)
 #define static_assert _Static_assert
 #endif
