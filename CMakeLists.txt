@@ -196,6 +196,12 @@ if(EMBED_ICU)
     # Keep consistent with what ICU download script used to print
     message("Note: ICU installation and use is subject to it's publisher's licensing terms")
 
+    if (CC_TARGET_OS_FREEBSD)
+        # FreeBSD calls GNU make 'gmake'
+        find_program(MAKE_PROGRAM "gmake" REQUIRED)
+    else()
+        set(MAKE_PROGRAM "make")
+    endif()
     set(ICU_PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/deps/thirdparty/icu)
     set(ICU_DOWNLOAD_DIR ${ICU_PREFIX}/download)
     set(ICU_SOURCE_DIR ${ICU_PREFIX}/stage)
@@ -219,8 +225,8 @@ if(EMBED_ICU)
         URL https://github.com/unicode-org/icu/releases/download/release-63-2/icu4c-63_2-src.tgz
         URL_HASH SHA512=5fa9092efd8d6da6dfc8d498e4026167fda43423eaafc754d1789cf8fd4f6e76377878ebcaa32e14f314836136b764873511a93bfbcc5419b758841cc6df8f32
         CONFIGURE_COMMAND ${ICU_SOURCE_DIR}/source/configure --prefix=${ICU_PREFIX} --with-data-packaging=static --enable-static --disable-shared --with-library-bits=64 --disable-icuio --disable-layout --disable-tests --disable-samples
-        BUILD_COMMAND make STATICCFLAGS="-fPIC" STATICCXXFLAGS="-fPIC" STATICCPPFLAGS="-DPIC"
-        INSTALL_COMMAND make install
+        BUILD_COMMAND ${MAKE_PROGRAM} STATICCFLAGS="-fPIC" STATICCXXFLAGS="-fPIC" STATICCPPFLAGS="-DPIC"
+        INSTALL_COMMAND ${MAKE_PROGRAM} install
         BYPRODUCTS ${ICU_LIBRARIES}
     )
 elseif(ICU_INCLUDE_PATH)
@@ -361,7 +367,7 @@ elseif(CC_TARGET_OS_FREEBSD)
     add_definitions(
         -DPLATFORM_UNIX
     )
-    # TODO
+    # TODO?
 else()
     message(FATAL_ERROR "Unsupported OS: ${CMAKE_SYSTEM_NAME}")
 endif()
