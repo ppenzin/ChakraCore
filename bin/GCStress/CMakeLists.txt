@@ -45,4 +45,11 @@ elseif(NOT CC_TARGET_OS_ANDROID)
     )
 endif()
 
+if(CC_TARGET_OS_FREEBSD)
+  set(lib_target "${lib_target}"
+    "-L/usr/local/lib"
+    "-lintl"
+    )
+endif()
+
 target_link_libraries (GCStress ${lib_target})
