@@ -46,6 +46,11 @@ elseif(NOT CC_TARGET_OS_ANDROID)
 endif()
 
 if(CC_TARGET_OS_FREEBSD)
+  if(CMAKE_BUILD_TYPE STREQUAL Debug)
+    set(lib_target "${lib_target}"
+      "-lexecinfo"
+      )
+  endif()
   set(lib_target "${lib_target}"
     "-L/usr/local/lib"
     "-lintl"
